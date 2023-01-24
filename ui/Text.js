@@ -1,0 +1,1 @@
+// should be component that accepts fontSize, color and other repeatable style props as component props
