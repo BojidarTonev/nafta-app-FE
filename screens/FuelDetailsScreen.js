@@ -40,7 +40,7 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
         const { companyName, companyImage, averagePrice, margin } = item;
         const isLast = index === sampleGasCompanyPerFuelData.length - 1;
 
-        return(<View style={{...styles.gasStationPerFuelWrapper, marginBottom: isLast ? 30 : 8}}>
+        return(<View style={{...styles.gasStationPerFuelWrapper, marginBottom: isLast ? 80 : 8}}>
             <View style={{flexDirection: 'row'}}>
                 <Image source={companyImage} style={{height: 30, width: 30}} />
                 <Text style={{fontSize: 20, color: 'white', marginLeft: 20}}>{companyName}</Text>

@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         elevation: 10
     },
     additionalInformation: {
-        marginBottom: 30,
+        marginBottom: 80,
         alignSelf: 'center',
         fontSize: 15,
         color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,

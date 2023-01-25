@@ -27,7 +27,7 @@ export const FuelsScreen = ({ navigation }) => {
 
     return(<View style={styles.container}>
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
-            <ScrollView style={{marginTop: 100, flex: 1}}>
+            <ScrollView style={{marginTop: 100,  flex: 1}}>
                 {sampleFuelsData.map((item, idx) => {
                     const {fuelName, fuelPriceMovement } = item;
 

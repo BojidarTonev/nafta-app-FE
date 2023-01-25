@@ -46,7 +46,7 @@ export const SearchResultScreen = ({navigation, route}) => {
 
                     return(<Pressable
                         key={`fcsr-${index}`}
-                        style={{...styles.itemWrapper, marginBottom: isLast ? 40 : 0}}
+                        style={{...styles.itemWrapper, marginBottom: isLast ? 80 : 0}}
                         onPress={() => onResultItemPress(companyName, fuelPrice, 'sample location', distance)}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 <Image source={companyLogo} style={{height: 30, width: 30}} />
