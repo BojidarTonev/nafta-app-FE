@@ -8,14 +8,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from '@fortawesome/fontawesome-free-solid';
 import {GasStationDetailsScreen} from "./screens/GasStationDetailsScreen";
 import {SearchResultScreen} from "./screens/SearchResultScreen";
+import {SearchResultDetailsScreen} from "./screens/SearchResultDetailsScreen";
 
 const Stack = createStackNavigator();
 
 const screenDetailsHeaderOptions = {
-    headerBackImage: () => <FontAwesomeIcon icon={faAngleLeft} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />,
+    headerBackImage: () => <FontAwesomeIcon icon={faAngleLeft} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginTop: 30}} />,
     headerTransparent: true,
     headerTitleAlign: 'center',
-    headerTitleStyle: { fontSize: 30 },
+    headerTitleStyle: { fontSize: 30, marginTop: 20, fontWeight: 'bold' },
     headerTintColor: '#ffffff'
 };
 
@@ -49,7 +50,18 @@ export default function App() {
             <Stack.Screen
                 name={NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN}
                 component={SearchResultScreen}
-                options={{...screenDetailsHeaderOptions}}
+                options={() => ({
+                    title: "Search Results",
+                    ...screenDetailsHeaderOptions
+                })}
+            />
+            <Stack.Screen
+                name={NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_DETAILS_SCREEN}
+                component={SearchResultDetailsScreen}
+                options={({route}) => ({
+                    title: route.params.companyName.toUpperCase(),
+                    ...screenDetailsHeaderOptions
+                })}
             />
         </Stack.Navigator>
       </NavigationContainer>

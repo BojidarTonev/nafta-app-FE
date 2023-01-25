@@ -26,7 +26,7 @@ export const GasStationsScreen = ({ navigation }) => {
     };
 
     return(<View style={styles.container}>
-        <ImageBackground source={require('../assets/blurred-map-background.jpg')} resizeMode="cover" style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100, flex: 1}}>
                 {sampleGasCompaniesData.map((item, idx) => {
                     const {companyName, companyImage } = item;
@@ -58,22 +58,18 @@ const styles = StyleSheet.create({
     itemWrapper: {
         marginHorizontal: 40,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: 40,
+        alignItems: 'center',
+        marginTop: 30,
         padding: 15,
-        backgroundColor: 'rgba(51, 51, 51, 0.9)',
+        backgroundColor: 'rgba(51, 51, 51, 0.85)',
         borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 1
+        shadowColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
+        elevation: 2
     },
     itemText: {
         fontSize: 20,
         color: 'white'
-    },
-    innerWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center'
     },
     priceMovementText: {
         fontSize: 20,

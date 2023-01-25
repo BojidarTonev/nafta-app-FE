@@ -20,7 +20,13 @@ export const HomeScreen = ({ navigation, route }) => {
   const [selectedFuelType, setSelectedFuelType] = React.useState(pickerFuelTypesValues[0]);
 
   const onFindPress = () => {
-      console.log('find pressed => ');
+      navigation.navigate({
+          name: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN,
+          params: {
+              fuelType: selectedFuelType.label,
+              radius: sliderValue
+          }
+      })
   };
 
   const onSliderValueChange = (e) => {
@@ -31,12 +37,13 @@ export const HomeScreen = ({ navigation, route }) => {
   };
 
   const onSelectedFuelTypeChange = (itemValue) => {
+      console.log('test => ', itemValue)
     const selectedItem = pickerFuelTypesValues.find((v) => v.value === itemValue);
-    selectedItem && setSelectedFuelType(itemValue);
+    selectedItem && setSelectedFuelType(selectedItem);
   };
 
   return(<View style={{flex: 1}}>
-      <ImageBackground source={require('../assets/blurred-map-background.jpg')} resizeMode="cover" style={styles.backgroundImage}>
+      <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
           <Text style={styles.subHeaderText}>{subTitle}</Text>
           <TouchableOpacity
               activeOpacity={0.6}
@@ -49,7 +56,7 @@ export const HomeScreen = ({ navigation, route }) => {
               <Picker
                 dropdownIconColor={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}
                 style={styles.pickerStyle}
-                selectedValue={selectedFuelType}
+                selectedValue={selectedFuelType.value}
                 onValueChange={onSelectedFuelTypeChange}
               >
                   {pickerFuelTypesValues.map((item, idx) => {
@@ -63,7 +70,7 @@ export const HomeScreen = ({ navigation, route }) => {
                   minimumValue={0}
                   maximumValue={2}
                   value={sliderValue}
-                  onValueChange={(e) => onSliderValueChange(e)}
+                  onValueChange={onSliderValueChange}
                   thumbTintColor={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}
                   minimumTrackTintColor={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}
               />
@@ -73,6 +80,9 @@ export const HomeScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     subHeaderText: {
         color: 'white',
         fontSize: 20,
@@ -84,23 +94,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    container: {
-        flex: 1,
-    },
     actionButton: {
         marginTop: 70,
         marginBottom: 10,
-        width: 180,
-        height: 180,
+        width: 190,
+        height: 190,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 100,
-        backgroundColor: 'rgba(24,24,24,0.9)',
-        borderColor: '#333333',
+        backgroundColor: 'rgb(24,24,24)',
+        borderColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR_2,
         borderWidth: 5
     },
     actionButtonText: {
-        fontSize: 30,
+        fontSize: 35,
         fontWeight: 'bold',
         color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR
     },

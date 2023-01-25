@@ -1,6 +1,7 @@
 import {Text, View, StyleSheet, Image, ScrollView} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
+import {LinearGradient} from 'expo-linear-gradient';
 
 const sampleGasCompanyDetailsData = {
     fuels: [
@@ -16,21 +17,22 @@ const sampleGasCompanyDetailsData = {
 };
 
 export const GasStationDetailsScreen = ({navigation, route}) => {
-    return(<View style={styles.container}>
-        <View style={styles.toggleButton}>
-            <Text style={{fontSize: 25, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, borderBottomWidth: 2, borderBottomColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, marginBottom: 5, fontWeight: 'bold'}}>Details</Text>
-            <Text style={{fontSize: 25, borderBottomWidth: 2, marginBottom: 5, color: 'white', borderBottomColor: 'white', fontWeight: 'bold'}}>Gas Stations</Text>
+    return(<LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
+        colors={[NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_DARK, NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_ORANGE]}
+        style={styles.container}>
+        <View style={styles.toggleButtonWrapper}>
+            <Text style={{...styles.toggleButton, ...styles.activeToggleButton}}>Details</Text>
+            <Text style={styles.toggleButton}>Gas Stations</Text>
         </View>
         <Image source={require('../assets/eko-logo.png')} style={{height: 170, width: 170, marginVertical: 40, borderRadius: 15}} />
-        <View style={styles.descriptionWrapper}>
-            <Text style={styles.descriptionText}>Fuel Type</Text>
-            <Text style={styles.descriptionText}>Avg Price</Text>
-        </View>
         <ScrollView style={{width: '100%'}}>
-            {sampleGasCompanyDetailsData.fuels.map((fuel) => {
+            {sampleGasCompanyDetailsData.fuels.map((fuel, index) => {
                 const { fuelType, averagePrice, margin, imageSrc } = fuel;
+                const isLast = index === sampleGasCompanyDetailsData.fuels.length - 1;
 
-                return(<View style={styles.fuelRow}>
+                return(<View key={`fuel-type-key-${index}`} style={{...styles.fuelRow, marginBottom: isLast ? 30 : 15}}>
                     <View style={{flexDirection: 'row'}}>
                         <Image source={imageSrc} style={{height: 30, width: 30, marginRight: 10}} />
                         <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{fuelType}</Text>
@@ -45,39 +47,51 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
                     </View>
                 </View>)
             })}
+            <Text style={styles.additionalInformation}>Additional Information</Text>
         </ScrollView>
-    </View>)
+    </LinearGradient>)
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(24,24,24,1)',
-        paddingHorizontal: 30,
         alignItems: 'center'
     },
-    toggleButton: {
-        width: 250,
+    toggleButtonWrapper: {
+        marginTop: 100,
         flexDirection: 'row',
-        marginTop: 90,
-        justifyContent: "space-between",
+        justifyContent: "center",
+    },
+    toggleButton: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    activeToggleButton: {
+        backgroundColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        marginRight: 20
     },
     fuelRow: {
+        backgroundColor: 'rgba(100,79,60,0.4)',
+        padding: 15,
+        marginHorizontal: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 15
+        borderRadius: 10,
+        marginTop: 10,
+        elevation: 10
     },
-    descriptionWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        marginBottom: 10,
-        borderBottomWidth: 3,
-        paddingBottom: 20
-    },
-    descriptionText: {
-        fontSize: 20,
+    additionalInformation: {
+        marginBottom: 30,
+        alignSelf: 'center',
+        fontSize: 15,
         color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-        fontWeight: 'bold'
+        backgroundColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR_2,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20
     }
 })

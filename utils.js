@@ -1,7 +1,5 @@
-import {NAFTA_APP_CONSTANTS} from "./constants";
-
 export const getPositiveNegativeNumberColor = (number) => {
-    if(number === 0) return NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR;
+    if(number === 0) return 'white';
     else if (number > 0) return 'green';
     else return 'red';
 };

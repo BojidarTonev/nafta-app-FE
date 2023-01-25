@@ -7,11 +7,17 @@ export const NAFTA_APP_CONSTANTS = {
         GAS_STATIONS_SCREEN: "GasStations",
         GAS_STATIONS_DETAILS_SCREEN: "GasStationDetails",
         SETTINGS_SCREEN: "Settings",
-        SEARCH_RESULT_SCREEN: "SearchResultScreen"
+        SEARCH_RESULT_SCREEN: "SearchResultScreen",
+        SEARCH_RESULT_DETAILS_SCREEN: "SearchResultDetailsScreen"
+    },
+    DRAWERS: {
+        GAS_STATION_ADDITIONAL_INFORMATION: "GasStationAdditionalInformation"
     },
     COLORS: {
-        ACTIVE_COLOR: "#F8A00A",
-        PASSIVE_COLOR_1: "black",
-        PASSIVE_COLOR_2: "#333333"
+        ACTIVE_COLOR: "#fda614",
+        ACTIVE_COLOR_2: "#2B5A9899",
+        BACKGROUND_COLOR_DARK: '#040414',
+        BACKGROUND_COLOR_ORANGE: '#3D1E00FF',
+        GRAY_COLOR: '#644F3C66',
     }
 };

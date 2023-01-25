@@ -26,7 +26,7 @@ export const FuelsScreen = ({ navigation }) => {
     }
 
     return(<View style={styles.container}>
-        <ImageBackground source={require('../assets/blurred-map-background.jpg')} resizeMode="cover" style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100, flex: 1}}>
                 {sampleFuelsData.map((item, idx) => {
                     const {fuelName, fuelPriceMovement } = item;
@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 40,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 40,
+        marginTop: 30,
         padding: 15,
-        backgroundColor: 'rgba(51, 51, 51, 0.9)',
+        backgroundColor: 'rgba(51, 51, 51, 0.85)',
         borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 1
+        shadowColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
+        elevation: 2
     },
     itemText: {
         fontSize: 20,

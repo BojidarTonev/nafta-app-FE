@@ -14,14 +14,14 @@ export const NavigationTabs = () => {
     const navigation = useNavigation();
 
     const settingIcon = () => (
-        <Pressable onPress={() => navigation.navigate(NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN)} style={{marginRight: 20}}>
+        <Pressable onPress={() => navigation.navigate(NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN)} style={{marginRight: 20, marginTop: 20}}>
             <FontAwesomeIcon icon={faBars} color="white" size={30} />
         </Pressable>
     )
 
     const navigationTabSharedProps = {
         headerTitleAlign: 'center',
-        headerTitleStyle: { fontSize: 30 },
+        headerTitleStyle: { fontSize: 30, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, marginTop: 20, fontWeight: 'bold' },
         headerTintColor: '#ffffff',
         headerTransparent: true,
         headerRight: settingIcon
