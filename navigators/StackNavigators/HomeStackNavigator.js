@@ -11,7 +11,7 @@ const sharedHomeStackNavigatorProps = {
 const HomeStack = createStackNavigator();
 
 export const HomeStackScreen = () => (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator initialRouteName={NAFTA_APP_CONSTANTS.SCREENS.HOME_SCREEN}>
         <HomeStack.Screen
             name={NAFTA_APP_CONSTANTS.SCREENS.HOME_SCREEN}
             component={HomeScreen}
@@ -24,6 +24,7 @@ export const HomeStackScreen = () => (
             name={NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN}
             component={SearchResultScreen}
             options={{
+                // headerBackImage: () => (<FontAwesomeIcon icon={faArrowLeft} size={30} style={{marginTop: 50}} color={'pink'} />),
                 ...sharedHomeStackNavigatorProps
             }}
         />
@@ -34,5 +35,6 @@ export const HomeStackScreen = () => (
                 ...sharedHomeStackNavigatorProps
             }}
         />
+        {/*<HomeStack.Screen name={NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN} component={SettingsScreen} options={{...sharedHomeStackNavigatorProps}} />*/}
     </HomeStack.Navigator>
 );

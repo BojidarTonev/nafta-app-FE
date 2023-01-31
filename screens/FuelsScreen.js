@@ -1,26 +1,25 @@
+import React from 'react';
 import {ImageBackground, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faInfoCircle} from "@fortawesome/fontawesome-free-solid";
 import {NAFTA_APP_CONSTANTS} from "../constants";
-import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
-
-const sampleFuelsData = [
-    { fuelName: 'Gasoline A95', fuelPriceMovement: 0.00 },
-    { fuelName: 'Gasoline A100', fuelPriceMovement: 0.01 },
-    { fuelName: 'Premium Diesel', fuelPriceMovement: 0.00 },
-    { fuelName: 'Diesel', fuelPriceMovement: 0.02 },
-    { fuelName: 'Propane-Butane', fuelPriceMovement: 0.00 },
-    { fuelName: 'Methane', fuelPriceMovement: -0.03 },
-    { fuelName: 'Methane 2', fuelPriceMovement: -0.03 },
-];
+import {useDispatch, useSelector} from "react-redux";
+import {fetchFuelsAveragePrice} from "../redux/fuelsSlice";
 
 export const FuelsScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const {fuelsAveragePrices} = useSelector((state) => state.fuels);
 
-    const onFuelItemPress = (fuelName) => {
+    React.useEffect(() => {
+        dispatch(fetchFuelsAveragePrice());
+    }, []);
+
+    const onFuelItemPress = (fuelName, averagePrice) => {
         navigation.navigate({
             name: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN,
             params: {
-                fuelName: fuelName
+                fuelName,
+                averagePrice
             }
         });
     }
@@ -28,15 +27,13 @@ export const FuelsScreen = ({ navigation }) => {
     return(<View style={styles.container}>
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100,  flex: 1}}>
-                {sampleFuelsData.map((item, idx) => {
-                    const {fuelName, fuelPriceMovement } = item;
+                {fuelsAveragePrices.map((item, idx) => {
+                    const {fuel, price } = item;
 
-                    return(<Pressable key={`main-fuel-item-${idx}`} style={styles.itemWrapper} onPress={() => onFuelItemPress(fuelName)}>
-                        <Text style={styles.itemText}>{fuelName}</Text>
+                    return(<Pressable key={`main-fuel-item-${idx}`} style={styles.itemWrapper} onPress={() => onFuelItemPress(fuel, price)}>
+                        <Text style={styles.itemText}>{fuel}</Text>
                         <View style={styles.innerWrapper}>
-                            <Text style={{color: getPositiveNegativeNumberColor(fuelPriceMovement), fontSize: 20}}>
-                                {transformMarketNumber(fuelPriceMovement)}
-                            </Text>
+                            <Text style={{color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontSize: 20}}>{price}</Text>
                             <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}} />
                         </View>
                     </Pressable>);

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, Image, FlatList} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import { faArrowDown, faArrowUp, faAngleUp } from '@fortawesome/fontawesome-free-solid';
+import { faAngleUp } from '@fortawesome/fontawesome-free-solid';
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
 import {LinearGradient} from 'expo-linear-gradient';
 
@@ -19,18 +19,13 @@ const sampleGasCompanyPerFuelData = [
 ];
 
 export const FuelDetailsScreen = ({ navigate, route }) => {
+    const { averagePrice, fuelName } = route.params;
     const [monthlyAveragePrice, setMonthlyAveragePrice] = React.useState(0);
 
     React.useEffect(() => {
         // should ask API and await response
-        setMonthlyAveragePrice('+0.01');
+        setMonthlyAveragePrice(averagePrice);
     }, []);
-
-    const getMonthlyAverageIcon = React.useCallback(() => {
-        if(Number(monthlyAveragePrice) === 0) return null;
-        else if (Number(monthlyAveragePrice) > 0) return faArrowUp;
-        else return faArrowDown;
-    }, [monthlyAveragePrice]);
 
     const getMonthlyAverageNumbersColor = React.useCallback(() => {
         return getPositiveNegativeNumberColor(monthlyAveragePrice);
@@ -61,8 +56,8 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
         style={styles.container}>
         <View style={styles.monthlyAverageWrapper}>
             <Text style={styles.monthlyAverageText}>Monthly average: </Text>
-            {Number(monthlyAveragePrice) !== 0 && <FontAwesomeIcon icon={getMonthlyAverageIcon()} size={25} color={getMonthlyAverageNumbersColor()}/>}
-            <Text style={{color: getMonthlyAverageNumbersColor(), fontSize: 25}}>{monthlyAveragePrice}</Text>
+            {/*{Number(monthlyAveragePrice) !== 0 && <FontAwesomeIcon icon={getMonthlyAverageIcon()} size={25} color={getMonthlyAverageNumbersColor()}/>}*/}
+            <Text style={{color: getMonthlyAverageNumbersColor(), fontSize: 25}}>{averagePrice}</Text>
         </View>
         <View style={styles.filterButtonsWrapper}>
             <View style={{...styles.filterButton, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(43,90,152,0.6)'}}>

@@ -1,21 +1,12 @@
 import {Text, View, StyleSheet, ScrollView, Image, Pressable} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
-
-const sampleResultData = [
-    {companyName: 'Shell', companyLogo: require('../assets/shell-logo.png'), fuelPrice: 2.14, distance: 1.23},
-    {companyName: 'Lukoil', companyLogo: require('../assets/lukoil-logo.png'), fuelPrice: 2.15, distance: 1.22},
-    {companyName: 'Rompetrol', companyLogo: require('../assets/rompetrol-logo.png'), fuelPrice: 2.19, distance: 1.27},
-    {companyName: 'Shell', companyLogo: require('../assets/shell-logo.png'), fuelPrice: 2.21, distance: 1.19},
-    {companyName: 'Petrol', companyLogo: require('../assets/petrol-logo.png'), fuelPrice: 2.23, distance: 1.31},
-    {companyName: 'Eko', companyLogo: require('../assets/eko-logo.png'), fuelPrice: 2.23, distance: 1.41},
-    {companyName: 'Shell', companyLogo: require('../assets/shell-logo.png'), fuelPrice: 2.24, distance: 1.47},
-    {companyName: 'Eko', companyLogo: require('../assets/eko-logo.png'), fuelPrice: 2.288, distance: 1.58},
-    {companyName: 'Shell', companyLogo: require('../assets/shell-logo.png'), fuelPrice: 2.31, distance: 1.9}
-];
+import {useSelector} from "react-redux";
 
 export const SearchResultScreen = ({navigation, route}) => {
     const {fuelType, radius} = route.params;
+
+    const { gasStations } = useSelector((state) => state.home);
 
     const onResultItemPress = (companyName, fuelPrice, gasStationLocation, radius) => {
         navigation.navigate({
@@ -40,21 +31,21 @@ export const SearchResultScreen = ({navigation, route}) => {
                 <Text style={styles.informationButton}>Radius: {radius}km</Text>
             </View>
             <ScrollView style={{marginTop: 20}}>
-                {sampleResultData.map((item, index) => {
-                    const {companyName, companyLogo, fuelPrice, distance} = item;
-                    const isLast = index === sampleResultData.length - 1;
+                {gasStations.map((item, index) => {
+                    const {brand_name, fuelPrice, distance, address} = item;
+                    const isLast = index === gasStations.length - 1;
 
                     return(<Pressable
                         key={`fcsr-${index}`}
                         style={{...styles.itemWrapper, marginBottom: isLast ? 80 : 0}}
-                        onPress={() => onResultItemPress(companyName, fuelPrice, 'sample location', distance)}>
+                        onPress={() => onResultItemPress(brand_name, fuelPrice, address, distance)}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Image source={companyLogo} style={{height: 30, width: 30}} />
-                                <Text style={{fontSize: 18, color: 'white', marginLeft: 20}}>{companyName}</Text>
+                                <Image source={{uri: `http://origin.stg.cld.vcdn.data.here.com/p/d/autox_stg/dt/icons/2015-05-06/${brand_name.toLowerCase()}.png`}} style={{height: 30, width: 30}} />
+                                <Text style={{fontSize: 18, color: 'white', marginLeft: 20}}>{brand_name}</Text>
                             </View>
                             <View style={{flexDirection: 'row', alignItems: 'center', width: 120, justifyContent: 'space-between'}}>
                                 <Text style={{fontSize: 18, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}}>{fuelPrice}</Text>
-                                <Text style={{fontSize: 18, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}}>{distance}km</Text>
+                                <Text style={{fontSize: 18, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}}>{distance.toFixed(2)}km</Text>
                             </View>
                     </Pressable>);
                 })}

@@ -3,23 +3,34 @@ import {Text, View, ImageBackground, StyleSheet, TouchableOpacity} from "react-n
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {Slider} from "@miblanchard/react-native-slider";
 import {Picker} from "@react-native-picker/picker";
+import {useDispatch} from "react-redux";
+import {fetchBestPriceNearestStations} from "../redux/homeSlice";
 
 const pickerFuelTypesValues = [
-    { label: 'Gasoline A95', value: 'gasoline_a95' },
-    { label: 'Gasoline A100', value: 'gasoline_a100' },
-    { label: 'Propane-Butane', value: 'propane_butane' },
-    { label: 'Premium Diesel', value: 'premium_diesel' },
+    { label: 'Gasoline', value: 'gasoline' },
     { label: 'Diesel', value: 'diesel' },
+    { label: 'LPG', value: 'lpg' },
     { label: 'Methane', value: 'methane' }
 ];
 
 export const HomeScreen = ({ navigation, route }) => {
   const {subTitle} = route.params;
 
+  const dispatch = useDispatch();
+
   const [sliderValue, setSliderValue] = React.useState(0);
   const [selectedFuelType, setSelectedFuelType] = React.useState(pickerFuelTypesValues[0]);
 
   const onFindPress = () => {
+      const fetchProps = {
+          lat: 42.6628640167891,
+          lon: 23.28363632506699,
+          fuel: selectedFuelType.value,
+          limit: 15,
+          distance: sliderValue
+      };
+      dispatch(fetchBestPriceNearestStations(fetchProps));
+
       navigation.navigate({
           name: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN,
           params: {
@@ -33,11 +44,10 @@ export const HomeScreen = ({ navigation, route }) => {
       const numberValue = e[0];
       if(isNaN(numberValue)) return;
 
-      setSliderValue(Number(numberValue).toFixed(1));
+      setSliderValue(Number(numberValue));
   };
 
   const onSelectedFuelTypeChange = (itemValue) => {
-      console.log('test => ', itemValue)
     const selectedItem = pickerFuelTypesValues.find((v) => v.value === itemValue);
     selectedItem && setSelectedFuelType(selectedItem);
   };
@@ -66,9 +76,9 @@ export const HomeScreen = ({ navigation, route }) => {
               </Picker>
               <Text style={styles.radiusText}>Radius: {sliderValue}km</Text>
               <Slider
-                  step={0.1}
+                  step={1}
                   minimumValue={0}
-                  maximumValue={2}
+                  maximumValue={100}
                   value={sliderValue}
                   onValueChange={onSliderValueChange}
                   thumbTintColor={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}

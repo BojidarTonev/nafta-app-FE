@@ -10,21 +10,23 @@ const sharedGasCompaniesStackNavigatorProps = {
 const GasSCompaniesStack = createStackNavigator();
 
 export const GasStationsStackScreen = () => (
-    <GasSCompaniesStack.Navigator>
+    <GasSCompaniesStack.Navigator initialRouteName={NAFTA_APP_CONSTANTS.SCREENS.GAS_STATIONS_SCREEN}>
         <GasSCompaniesStack.Screen
             name={NAFTA_APP_CONSTANTS.SCREENS.GAS_STATIONS_SCREEN}
             component={GasStationsScreen}
             options={{
-                ...sharedGasCompaniesStackNavigatorProps
+                ...sharedGasCompaniesStackNavigatorProps,
             }}
         />
         <GasSCompaniesStack.Screen
             name={NAFTA_APP_CONSTANTS.SCREENS.GAS_STATIONS_DETAILS_SCREEN}
             component={GasStationDetailsScreen}
-            options={({route}) => ({
-                // title: route.params.companyName,
-                ...sharedGasCompaniesStackNavigatorProps
-            })}
+            options={{
+                // headerTitle: getHeaderTitle(route),
+                // headerBackImage: () => <FontAwesomeIcon icon={"fast-backward"} />,
+                ...sharedGasCompaniesStackNavigatorProps,
+            }}
         />
+        {/*<GasSCompaniesStack.Screen name={NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN} component={SettingsScreen} options={{...sharedGasCompaniesStackNavigatorProps}} />*/}
     </GasSCompaniesStack.Navigator>
 );

@@ -10,7 +10,7 @@ const sharedFuelStackNavigatorProps = {
 const FuelStack = createStackNavigator();
 
 export const FuelStackScreen = () => (
-    <FuelStack.Navigator>
+    <FuelStack.Navigator initialRouteName={NAFTA_APP_CONSTANTS.SCREENS.FUELS_SCREEN}>
         <FuelStack.Screen
             name={NAFTA_APP_CONSTANTS.SCREENS.FUELS_SCREEN}
             component={FuelsScreen}
@@ -25,5 +25,6 @@ export const FuelStackScreen = () => (
                 ...sharedFuelStackNavigatorProps
             }}
         />
+        {/*<FuelStack.Screen name={NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN} component={SettingsScreen} options={{...sharedFuelStackNavigatorProps}} />*/}
     </FuelStack.Navigator>
 );
