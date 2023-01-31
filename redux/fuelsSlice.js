@@ -45,7 +45,6 @@ export const fuelsSlice = createSlice({
         })
         builder.addCase(fetchFuelsAveragePrice.fulfilled, (state, {payload}) => {
             state.loading = false;
-            console.log('payload => ', payload)
             state.fuelsAveragePrices = payload;
         })
         builder.addCase(fetchFuelsAveragePrice.rejected, (state) => {

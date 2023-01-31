@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, StyleSheet, Image, ScrollView, Pressable, FlatList} from "react-native";
+import {Text, View, StyleSheet, Image, ScrollView, Pressable, FlatList, ActivityIndicator} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
 import {LinearGradient} from 'expo-linear-gradient';
@@ -25,9 +25,10 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
     const { gasCompanyId, companyName } = route.params;
 
     const dispatch = useDispatch();
-    const {loading, selectedGasCompanyDetails} = useSelector(state => state.gasStations);
+    const {selectedGasCompanyDetails} = useSelector(state => state.gasStations);
 
     const [selectedMenu, setSelectedMenu] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
         const fetchParams = {
@@ -40,7 +41,11 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
     }, []);
 
     const onSelectedMenuItemPress = () => {
-        selectedMenu !== 0 ? setSelectedMenu(0) : setSelectedMenu(1);
+        setLoading(true);
+        setTimeout(() => {
+            selectedMenu !== 0 ? setSelectedMenu(0) : setSelectedMenu(1);
+            setLoading(false);
+        }, 1000)
     };
 
     const renderFuelsByStation = () => {
@@ -102,7 +107,8 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
                 </Pressable>
             </View>
             <Image source={require('../assets/eko-logo.png')} style={{height: 170, width: 170, marginVertical: 40, borderRadius: 15}} />
-            {selectedMenu === 0 ? renderFuelsByStation() : renderGasStations()}
+            {loading ? <ActivityIndicator size="large" style={{marginTop: 20}} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} /> :
+                selectedMenu === 0 ? renderFuelsByStation() : renderGasStations()}
     </LinearGradient>)
 }
 
