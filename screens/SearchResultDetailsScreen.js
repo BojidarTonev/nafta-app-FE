@@ -1,12 +1,21 @@
-import {Text, View, StyleSheet, Image, Pressable} from "react-native";
+import {Text, View, StyleSheet, Image, Pressable, Linking, Platform} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 
 export const SearchResultDetailsScreen = ({navigation, route}) => {
-    const {fuelType, fuelPrice, gasStationLocation, radius, companyName} = route.params;
-    console.log('route params => ', route.params);
+    const {fuelType, fuelPrice, gasStationLocation, radius, companyName, lat, lon} = route.params;
+
     const onOpenInMapsButtonPress = () => {
-        console.log('opening in maps!');
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lat},${lon}`;
+        const label = 'Open in maps...';
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
+
+
+        Linking.openURL(url);
     }
 
     return(<LinearGradient

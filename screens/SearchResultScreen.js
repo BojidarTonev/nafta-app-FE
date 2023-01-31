@@ -8,7 +8,7 @@ export const SearchResultScreen = ({navigation, route}) => {
 
     const { gasStations } = useSelector((state) => state.home);
 
-    const onResultItemPress = (companyName, fuelPrice, gasStationLocation, radius) => {
+    const onResultItemPress = (companyName, fuelPrice, gasStationLocation, radius, lat, lon) => {
         navigation.navigate({
             name: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_DETAILS_SCREEN,
             params: {
@@ -16,7 +16,9 @@ export const SearchResultScreen = ({navigation, route}) => {
                 fuelPrice,
                 gasStationLocation,
                 radius,
-                fuelType
+                fuelType,
+                lat,
+                lon
             }
         })
     };
@@ -32,13 +34,13 @@ export const SearchResultScreen = ({navigation, route}) => {
             </View>
             <ScrollView style={{marginTop: 20}}>
                 {gasStations.map((item, index) => {
-                    const {brand_name, fuelPrice, distance, address} = item;
+                    const {brand_name, fuelPrice, distance, address, lat, lon} = item;
                     const isLast = index === gasStations.length - 1;
 
                     return(<Pressable
                         key={`fcsr-${index}`}
                         style={{...styles.itemWrapper, marginBottom: isLast ? 80 : 0}}
-                        onPress={() => onResultItemPress(brand_name, fuelPrice, address, distance)}>
+                        onPress={() => onResultItemPress(brand_name, fuelPrice, address, distance, lat, lon)}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 <Image source={{uri: `http://origin.stg.cld.vcdn.data.here.com/p/d/autox_stg/dt/icons/2015-05-06/${brand_name.toLowerCase()}.png`}} style={{height: 30, width: 30}} />
                                 <Text style={{fontSize: 18, color: 'white', marginLeft: 20}}>{brand_name}</Text>
