@@ -6,6 +6,7 @@ import store from './redux/store';
 // store.dispatch(fetchGasStationDetails());
 
 export default function App() {
+    console.log('test => ');
     return (
         <Provider store={ store }>
             <Navigation/>
