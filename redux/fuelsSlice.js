@@ -1,33 +1,17 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import axios from "axios";
-import {NAFTA_APP_CONSTANTS} from "../constants";
+import fuelsApi from '../api/fuelsAPI';
 
 // thunk creation comes first
-export const fetchFuelsAveragePrice = createAsyncThunk(
-    `fuels/getAveragePrice`,
-    async () => {
-        // should be => await fuelsAPI.fetchAveragePrice(name)
-        try {
-            const promises = [
-                axios.get(`${NAFTA_APP_CONSTANTS.API.ENDPOINT_URL}/price`, {params: {fuel: 'gasoline', date: '2023-01-31', key: NAFTA_APP_CONSTANTS.API.KEY}}),
-                axios.get(`${NAFTA_APP_CONSTANTS.API.ENDPOINT_URL}/price`, {params: {fuel: 'diesel', date: '2023-01-31', key: NAFTA_APP_CONSTANTS.API.KEY}}),
-                axios.get(`${NAFTA_APP_CONSTANTS.API.ENDPOINT_URL}/price`, {params: {fuel: 'lpg', date: '2023-01-31', key: NAFTA_APP_CONSTANTS.API.KEY}}),
-                axios.get(`${NAFTA_APP_CONSTANTS.API.ENDPOINT_URL}/price`, {params: {fuel: 'methane', date: '2023-01-31', key: NAFTA_APP_CONSTANTS.API.KEY}})
-            ];
-            const data = await Promise.all(promises);
-            return data.map((item) => item.data);
-        } catch (e) {
-            console.error("ERROR IN API => ", e);
-            // return { companyName, stations: []};
-        }
-    }
+export const fetchAllFuels = createAsyncThunk(
+    `fuels/fetchAllFuels`,
+    async () => await fuelsApi.fetchAllFuels()
 );
 
 export const fuelsSlice = createSlice({
     name: 'fuels',
     initialState: {
         loading: false,
-        fuelsAveragePrices: [],
+        allFuels: [],
         selectedFuel: null
     },
     reducers: {
@@ -40,16 +24,17 @@ export const fuelsSlice = createSlice({
     },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(fetchFuelsAveragePrice.pending, (state) => {
+        builder.addCase(fetchAllFuels.pending, (state) => {
             state.loading = true;
+            state.allFuels = [];
         })
-        builder.addCase(fetchFuelsAveragePrice.fulfilled, (state, {payload}) => {
+        builder.addCase(fetchAllFuels.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.fuelsAveragePrices = payload;
+            state.allFuels = payload;
         })
-        builder.addCase(fetchFuelsAveragePrice.rejected, (state) => {
+        builder.addCase(fetchAllFuels.rejected, (state) => {
             state.loading = false;
-            state.fuelsAveragePrices = [];
+            state.allFuels = [];
         })
     }
 })

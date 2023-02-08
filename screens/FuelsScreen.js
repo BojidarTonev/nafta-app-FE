@@ -4,14 +4,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faInfoCircle} from "@fortawesome/fontawesome-free-solid";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFuelsAveragePrice} from "../redux/fuelsSlice";
+import {fetchAllFuels} from "../redux/fuelsSlice";
 
 export const FuelsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
-    const {fuelsAveragePrices} = useSelector((state) => state.fuels);
+    const { allFuels, loading } = useSelector((state) => state.fuels);
 
     React.useEffect(() => {
-        dispatch(fetchFuelsAveragePrice());
+        dispatch(fetchAllFuels());
     }, []);
 
     const onFuelItemPress = (fuelName, averagePrice) => {
@@ -27,13 +27,13 @@ export const FuelsScreen = ({ navigation }) => {
     return(<View style={styles.container}>
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100,  flex: 1}}>
-                {fuelsAveragePrices.map((item, idx) => {
-                    const {fuel, price } = item;
+                {allFuels.map((item, idx) => {
+                    const {name, margin, lastMonthAveragePrice, averageMonthlyPrice } = item;
 
-                    return(<Pressable key={`main-fuel-item-${idx}`} style={styles.itemWrapper} onPress={() => onFuelItemPress(fuel, price)}>
-                        <Text style={styles.itemText}>{fuel}</Text>
+                    return(<Pressable key={`main-fuel-item-${idx}`} style={styles.itemWrapper} onPress={() => onFuelItemPress(name, averageMonthlyPrice)}>
+                        <Text style={styles.itemText}>{name}</Text>
                         <View style={styles.innerWrapper}>
-                            <Text style={{color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontSize: 20}}>{price}</Text>
+                            <Text style={{color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontSize: 20}}>{averageMonthlyPrice}</Text>
                             <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}} />
                         </View>
                     </Pressable>);

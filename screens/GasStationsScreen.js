@@ -1,19 +1,18 @@
+import React from 'react';
 import {Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faInfoCircle} from "@fortawesome/fontawesome-free-solid";
 import {NAFTA_APP_CONSTANTS} from "../constants";
-
-const sampleGasCompaniesData = [
-    {gasCompanyId: 1, companyName: 'Eko', companyImage: require('../assets/eko-logo.png') },
-    {gasCompanyId: 2, companyName: 'Lukoil', companyImage: require('../assets/lukoil-logo.png') },
-    {gasCompanyId: 3, companyName: 'OMV', companyImage: require('../assets/omv-logo.png') },
-    {gasCompanyId: 4, companyName: 'Rompetrol', companyImage: require('../assets/rompetrol-logo.png') },
-    {gasCompanyId: 5, companyName: 'Shell', companyImage: require('../assets/shell-logo.png') },
-    {gasCompanyId: 6, companyName: 'Petrol', companyImage: require('../assets/petrol-logo.png') },
-    {gasCompanyId: 1, companyName: 'Eko', companyImage: require('../assets/eko-logo.png') }
-];
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAllGasCompanies} from "../redux/gasCompaniesSlice";
 
 export const GasStationsScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const { allGasCompanies } = useSelector((state) => state.gasCompanies);
+
+    React.useEffect(() => {
+        dispatch(fetchAllGasCompanies());
+    }, []);
 
     const onGasCompanyItemPress = (companyName, companyImage, gasCompanyId) => {
         navigation.navigate({
@@ -29,12 +28,14 @@ export const GasStationsScreen = ({ navigation }) => {
     return(<View style={styles.container}>
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100, flex: 1}}>
-                {sampleGasCompaniesData.map((item, idx) => {
-                    const {companyName, companyImage, gasCompanyId } = item;
-                    return(<Pressable key={`main-fuel-company-item-${idx}`} style={styles.itemWrapper} onPress={() => onGasCompanyItemPress(companyName, companyImage, gasCompanyId)}>
+                {allGasCompanies.map((item, idx) => {
+                    const { _id, name, imageUrl, gasStations, website  } = item;
+                    const isLast = idx === allGasCompanies.length - 1;
+
+                    return(<Pressable key={`main-fuel-company-item-${idx}`} style={{marginBottom: isLast ? 80 : 0, ...styles.itemWrapper}} onPress={() => onGasCompanyItemPress(name, imageUrl, _id)}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Image source={companyImage} style={{height: 30, width: 30, marginRight: 15}} />
-                            <Text style={{fontSize: 20, color: 'white'}}>{companyName}</Text>
+                            <Image source={{uri: imageUrl}} style={{height: 30, width: 30, marginRight: 15}} />
+                            <Text style={{fontSize: 20, color: 'white'}}>{name}</Text>
                         </View>
                         <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}} />
                     </Pressable>);

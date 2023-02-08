@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gasStationsReducer from '../redux/gasStationsSlice';
+import gasCompaniesReducer from './gasCompaniesSlice';
 import homeReducer from '../redux/homeSlice';
-import fuelsReducer from '../redux/fuelsSlice';
+import fuelsReducer from './fuelsSlice';
 
 export default configureStore({
     reducer: {
         home: homeReducer,
-        gasStations: gasStationsReducer,
+        gasCompanies: gasCompaniesReducer,
         fuels: fuelsReducer
     },
     middleware: getDefaultMiddleware =>

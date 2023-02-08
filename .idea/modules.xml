@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NaftaAppProject.iml" filepath="$PROJECT_DIR$/.idea/NaftaAppProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../nafta-app BE/.idea/nafta-app BE.iml" filepath="$PROJECT_DIR$/../nafta-app BE/.idea/nafta-app BE.iml" />
     </modules>
   </component>
 </project>

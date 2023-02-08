@@ -4,7 +4,7 @@ import {NAFTA_APP_CONSTANTS} from "../constants";
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGasCompanyDetailsById} from '../redux/gasStationsSlice';
+// import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
 import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 
@@ -37,7 +37,7 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
             limit: NAFTA_APP_CONSTANTS.API.API_LIMIT,
             offset: 0
         };
-        dispatch(fetchGasCompanyDetailsById(fetchParams));
+        // dispatch(fetchGasCompanyById(fetchParams));
     }, []);
 
     const onSelectedMenuItemPress = () => {
