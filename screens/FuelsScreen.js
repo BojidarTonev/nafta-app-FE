@@ -1,10 +1,9 @@
 import React from 'react';
-import {ImageBackground, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faInfoCircle} from "@fortawesome/fontawesome-free-solid";
+import {ImageBackground, ScrollView, StyleSheet, View} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllFuels} from "../redux/fuelsSlice";
+import {MainListItem} from "../ui/MainListItem";
 
 export const FuelsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -28,15 +27,18 @@ export const FuelsScreen = ({ navigation }) => {
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
             <ScrollView style={{marginTop: 100,  flex: 1}}>
                 {allFuels.map((item, idx) => {
-                    const {name, margin, lastMonthAveragePrice, averageMonthlyPrice } = item;
+                    const {name, margin, lastMonthAveragePrice, averageMonthlyPrice, imageUrl } = item;
 
-                    return(<Pressable key={`main-fuel-item-${idx}`} style={styles.itemWrapper} onPress={() => onFuelItemPress(name, averageMonthlyPrice)}>
-                        <Text style={styles.itemText}>{name}</Text>
-                        <View style={styles.innerWrapper}>
-                            <Text style={{color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontSize: 20}}>{averageMonthlyPrice}</Text>
-                            <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}} />
-                        </View>
-                    </Pressable>);
+                    return (<MainListItem
+                        key={`main-fuel-item-${idx}`}
+                        text={name}
+                        imageUrl={imageUrl}
+                        price={averageMonthlyPrice}
+                        priceMargin={margin}
+                        onPress={() => onFuelItemPress(name, averageMonthlyPrice)}
+                        infoIcon
+                        customStyles={{backgroundColor: `rgba(51, 51, 51, 0.85)`}}
+                    />)
                 })}
             </ScrollView>
         </ImageBackground>
@@ -50,30 +52,5 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
         justifyContent: 'center'
-    },
-
-    ////////////////////////////////////////////////////////// TO BE ABSTRACTED IN REUSABLE COMPONENT
-
-    itemWrapper: {
-        marginHorizontal: 40,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 30,
-        padding: 15,
-        backgroundColor: 'rgba(51, 51, 51, 0.85)',
-        borderRadius: 10,
-        shadowColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-        elevation: 2
-    },
-    itemText: {
-        fontSize: 20,
-        color: 'white'
-    },
-    innerWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    priceMovementText: {
-        fontSize: 20,
     }
 });

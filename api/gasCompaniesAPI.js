@@ -19,8 +19,14 @@ const gasCompaniesApi = {
             console.log('ERROR IN GET COMPANY BY ID ENDPOINT!');
         }
     },
-    fetchGasStationsByCompanyId: (id) => {
-
+    fetchGasCompanyGasStations: (id) => {
+        try {
+            return axios.get(`http://192.168.1.7:8000/gas-companies/gas-stations/${id}`)
+                .then((res) => res.data)
+                .catch((err) => console.log('handle me!', err))
+        } catch (err) {
+            console.log('ERROR IN GET COMPANY STATIONS ENDPOINT!')
+        }
     }
 };
 

@@ -7,7 +7,7 @@ const gasStationsApi = {
                 .then((res) => res.data)
                 .catch((err) => console.log('handle me!', err))
         } catch (error) {
-            console.log('ERROR IN GET ALL GAS STATIONS API!');
+            console.log('ERROR IN GET ALL GAS STATIONS ENDPOINT!');
         }
     }
 };

@@ -3,14 +3,12 @@ import {FuelStackScreen, GasStationsStackScreen, HomeStackScreen} from "./StackN
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faDollarSign, faFire, faGasPump} from "@fortawesome/fontawesome-free-solid";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {settingIcon} from "../shared/settingIconComponent";
 import {getHeaderTitle} from "../utils";
 
 const navigationTabSharedProps = {
     headerTitleAlign: 'center',
     headerTitleStyle: { fontSize: 30, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontWeight: 'bold' },
-    headerTransparent: true,
-    headerRight: settingIcon,
+    headerTransparent: true
 };
 
 const Tab = createBottomTabNavigator();

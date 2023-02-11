@@ -1,94 +1,66 @@
 import React from "react";
 import {Text, View, StyleSheet, Image, ScrollView, Pressable, FlatList, ActivityIndicator} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
-import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from "react-redux";
-// import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
+import {fetchGasCompanyById, fetchGasCompanyGasStations} from '../redux/gasCompaniesSlice';
 import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-
-const sampleGasCompanyDetailsData = {
-    fuels: [
-        {fuelType: 'Propane-Butane', averagePrice: 2.03, margin: 0.05, imageSrc: require('../assets/a95.png') },
-        {fuelType: 'Gasoline A95', averagePrice: 2.14, margin: 0.02, imageSrc: require('../assets/a95.png') },
-        {fuelType: 'Gasoline A100', averagePrice: 2.79, margin: 0.00, imageSrc: require('../assets/a100.png') },
-        {fuelType: 'Diesel Premium', averagePrice: 2.79, margin: 0.02, imageSrc: require('../assets/a100.png') },
-        {fuelType: 'Diesel', averagePrice: 2.86, margin: -0.01, imageSrc: require('../assets/diesel.png') }],
-    companyPhoneNumber: '+359 867 259 132',
-    companyEmail: 'office@gascompany.bg',
-    companyWebsite: 'gascompany.bg',
-    numberOfStations: 7
-};
+import {MainListItem} from "../ui/MainListItem";
 
 export const GasStationDetailsScreen = ({navigation, route}) => {
-    const { gasCompanyId, companyName } = route.params;
+    const { id, imageUrl } = route.params;
 
     const dispatch = useDispatch();
-    const {selectedGasCompanyDetails} = useSelector(state => state.gasStations);
-
+    const {selectedGasCompanyDetails, loading} = useSelector(state => state.gasCompanies);
     const [selectedMenu, setSelectedMenu] = React.useState(0);
-    const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
-        const fetchParams = {
-            id: gasCompanyId,
-            companyName: companyName,
-            limit: NAFTA_APP_CONSTANTS.API.API_LIMIT,
-            offset: 0
-        };
-        // dispatch(fetchGasCompanyById(fetchParams));
+        dispatch(fetchGasCompanyById({id}));
     }, []);
 
     const onSelectedMenuItemPress = () => {
-        setLoading(true);
-        setTimeout(() => {
-            selectedMenu !== 0 ? setSelectedMenu(0) : setSelectedMenu(1);
-            setLoading(false);
-        }, 1000)
+        selectedMenu !== 0 ? setSelectedMenu(0) : setSelectedMenu(1);
+        if (selectedMenu === 1) {
+            // dispatch(fetchGasCompanyGasStations({id}))
+        }
     };
 
     const renderFuelsByStation = () => {
-        return (<ScrollView style={{width: '100%'}}>
-            {sampleGasCompanyDetailsData.fuels.map((fuel, index) => {
-            const { fuelType, averagePrice, margin, imageSrc } = fuel;
-            const isLast = index === sampleGasCompanyDetailsData.fuels.length - 1;
+        if(!selectedGasCompanyDetails) return;
 
-            return(<View key={`fuel-type-key-${index}`} style={{...styles.fuelRow, marginBottom: isLast ? 100 : 15}}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Image source={imageSrc} style={{height: 30, width: 30, marginRight: 10}} />
-                        <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{fuelType}</Text>
-                    </View>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text style={{fontSize: 20, color: getPositiveNegativeNumberColor(margin), fontWeight: 'bold'}}>
-                            {averagePrice}
-                        </Text>
-                        <Text style={{fontSize: 15, paddingLeft: 5, color: getPositiveNegativeNumberColor(margin)}}>
-                            {margin !== 0 && transformMarketNumber(margin)}
-                        </Text>
-                    </View>
-                </View>)
-            })}
+        return (<ScrollView style={{width: '100%'}}>
+            {selectedGasCompanyDetails.fuels.map((selectedGasCompanyFuel, index) => {
+                const { _id, fuel, averagePrice, margin, imageSrc } = selectedGasCompanyFuel;
+                const isLast = index === selectedGasCompanyDetails.fuels.length - 1;
+
+                return (<MainListItem
+                    key={`gas-company-fuels-${_id}`}
+                    imageUrl={imageSrc}
+                    text={fuel}
+                    price={averagePrice}
+                    priceMargin={margin}
+                    customStyles={{marginBottom: isLast ? 100 : 0}}
+                />)}
+            )}
         </ScrollView>)
     };
 
     const renderGasStations = () => {
         const renderGasCompanyDetail = ({item, index }) => {
-            const { id, address, name, brand_name } = item;
-            const isLast = index === selectedGasCompanyDetails.stations.length - 1;
+            const { _id, phoneNumber, location, name } = item;
+            const isLast = index === selectedGasCompanyDetails.gasStations.length - 1;
 
-            return(<View style={{...styles.fuelRow, marginBottom: isLast ? 100 : 15}}>
-                <View style={{flexDirection: 'row'}}>
-                    <FontAwesomeIcon icon={faLocationArrow} size={30} style={{marginRight: 30}} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
-                    <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>{name}</Text>
-                </View>
-            </View>)
+            return (<MainListItem
+                text={name}
+                icon={faLocationArrow}
+                customStyles={{marginBottom: isLast ? 100 : 0}}
+            />)
         };
 
         return (<FlatList
-            data={selectedGasCompanyDetails.stations}
+            data={selectedGasCompanyDetails.gasStations || []}
             renderItem={renderGasCompanyDetail}
-            keyExtractor={(item) => `gas-company-details-${item.id}`}
+            keyExtractor={(item) => `gas-company-gas-stations-${item._id}`}
             style={{width: '100%'}}
         />);
     }
@@ -106,7 +78,7 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
                     <Text style={[styles.toggleButton, selectedMenu === 1 && styles.activeToggleButton]}>Gas Stations</Text>
                 </Pressable>
             </View>
-            <Image source={require('../assets/eko-logo.png')} style={{height: 170, width: 170, marginVertical: 40, borderRadius: 15}} />
+            <Image source={{uri: imageUrl}} style={{height: 170, width: 170, marginTop: 40, borderRadius: 15}} />
             {loading ? <ActivityIndicator size="large" style={{marginTop: 20}} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} /> :
                 selectedMenu === 0 ? renderFuelsByStation() : renderGasStations()}
     </LinearGradient>)
@@ -133,16 +105,6 @@ const styles = StyleSheet.create({
     activeToggleButton: {
         backgroundColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
         borderRadius: 20
-    },
-    fuelRow: {
-        backgroundColor: 'rgba(100,79,60,0.4)',
-        padding: 15,
-        marginHorizontal: 30,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderRadius: 10,
-        marginTop: 10,
-        elevation: 10
     },
     additionalInformation: {
         marginBottom: 80,

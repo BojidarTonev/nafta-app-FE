@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image, FlatList} from "react-native";
+import {Text, View, StyleSheet, FlatList} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faAngleUp } from '@fortawesome/fontawesome-free-solid';
-import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
+import {getPositiveNegativeNumberColor} from "../utils";
 import {LinearGradient} from 'expo-linear-gradient';
+import {MainListItem} from "../ui/MainListItem";
 
 const sampleGasCompanyPerFuelData = [
     {id: 1, companyName: 'Shell', companyImage: require('../assets/shell-logo.png'), averagePrice: 2.14, margin: 0.02},
@@ -35,18 +36,13 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
         const { companyName, companyImage, averagePrice, margin } = item;
         const isLast = index === sampleGasCompanyPerFuelData.length - 1;
 
-        return(<View style={{...styles.gasStationPerFuelWrapper, marginBottom: isLast ? 80 : 8}}>
-            <View style={{flexDirection: 'row'}}>
-                <Image source={companyImage} style={{height: 30, width: 30}} />
-                <Text style={{fontSize: 20, color: 'white', marginLeft: 20}}>{companyName}</Text>
-            </View>
-            <View style={{flexDirection: 'row', width: 120, justifyContent: 'space-between'}}>
-                <Text style={{fontSize: 20, color: 'white'}}>{averagePrice}</Text>
-                <Text style={{fontSize: 20, color: getPositiveNegativeNumberColor(margin)}}>
-                    {transformMarketNumber(margin)}
-                </Text>
-            </View>
-        </View>)
+        return(<MainListItem
+                text={companyName}
+                imageUrl={"https://res.cloudinary.com/dsvitxv34/image/upload/v1675829072/rompetrol-logo_m3plag.png"}
+                price={averagePrice}
+                priceMargin={margin}
+                customStyles={{marginBottom: isLast ? 80 : 8, marginTop: 15}}
+            />)
     }
 
     return(<LinearGradient
@@ -110,16 +106,5 @@ const styles = StyleSheet.create({
         paddingHorizontal:25,
         borderRadius: 25,
         justifyContent: 'center'
-    },
-    gasStationPerFuelWrapper: {
-        backgroundColor: 'rgba(100,79,60,0.4)',
-        marginHorizontal: 30,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginTop: 8,
-        padding: 15,
-        borderRadius: 10,
-        elevation: 10
     }
 });
