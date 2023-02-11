@@ -3,7 +3,7 @@ import axios from "axios";
 const fuelsApi = {
     fetchAllFuels: () => {
         try {
-            return axios.get('http://192.168.1.7:8000/fuels/all')
+            return axios.get('http://192.168.1.2:8000/fuels/all')
                 .then((res) => res.data)
                 .catch((err) => console.log('handle me!', err))
         } catch (error) {

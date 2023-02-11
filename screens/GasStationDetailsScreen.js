@@ -29,7 +29,7 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
         if(!selectedGasCompanyDetails) return;
 
         return (<ScrollView style={{width: '100%'}}>
-            {selectedGasCompanyDetails.fuels.map((selectedGasCompanyFuel, index) => {
+            {(selectedGasCompanyDetails.fuels || []).map((selectedGasCompanyFuel, index) => {
                 const { _id, fuel, averagePrice, margin, imageSrc } = selectedGasCompanyFuel;
                 const isLast = index === selectedGasCompanyDetails.fuels.length - 1;
 
