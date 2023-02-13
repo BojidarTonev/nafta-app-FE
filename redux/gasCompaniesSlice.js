@@ -24,12 +24,33 @@ export const fetchGasCompanyGasStations = createAsyncThunk(
     }
 );
 
+export const fetchGasCompaniesByAvailableFuel = createAsyncThunk(
+    'gasCompanies/fetchGasCompaniesByAvailableFuel',
+    async (args, {getState}) => {
+        const state = getState();
+        const { selectedFuel } = state.fuels;
+        return await gasCompaniesAPI.fetchGasCompaniesByFuel(selectedFuel);
+    }
+);
+
 export const gasCompaniesSlice = createSlice({
     name: 'gasCompanies',
     initialState: {
         loading: false,
         allGasCompanies: [],
+        averagePriceByFuel: 0,
+        averagePriceMargin: 0,
+        gasCompaniesByAvailableFuel: [],
         selectedGasCompanyDetails: null
+    },
+    reducers: {
+        setGasCompaniesByAvailableFuel: (state, {payload}) => {
+            state.gasCompaniesByAvailableFuel = payload;
+        },
+        setAverageFuelPrice: (state, {payload}) => {
+            console.log('payload => ', payload);
+            state.averagePriceByFuel = payload;
+        }
     },
     extraReducers: (builder) => {
         // GET ALL COMPANIES ==========================================================
@@ -71,7 +92,35 @@ export const gasCompaniesSlice = createSlice({
             state.loading = false;
             state.selectedGasCompanyDetails.gasStations = [];
         });
+
+        // FETCH GAS COMPANIES BY AVAILABLE FUEL ==========================================================
+        builder.addCase(fetchGasCompaniesByAvailableFuel.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(fetchGasCompaniesByAvailableFuel.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.gasCompaniesByAvailableFuel = payload;
+        });
+        builder.addCase(fetchGasCompaniesByAvailableFuel.rejected, (state) => {
+            state.loading = false;
+            state.gasCompaniesByAvailableFuel = [];
+        });
     }
 });
+
+export const { setGasCompaniesByAvailableFuel, setAverageFuelPrice } = gasCompaniesSlice.actions
+
+export const calculateAveragePrice = () => async (dispatch, getState) => {
+    const state = getState();
+    const {gasCompaniesByAvailableFuel} = state.gasCompanies;
+
+    const sumPrice = gasCompaniesByAvailableFuel.reduce((acc, currValue) => {
+        acc += currValue?.averagePrice;
+        return acc;
+    }, 0);
+
+    const result = (sumPrice/gasCompaniesByAvailableFuel.length).toFixed(2);
+    dispatch(setAverageFuelPrice(result));
+};
 
 export default gasCompaniesSlice.reducer

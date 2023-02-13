@@ -27,6 +27,25 @@ const gasCompaniesApi = {
         } catch (err) {
             console.log('ERROR IN GET COMPANY STATIONS ENDPOINT!')
         }
+    },
+    fetchGasCompaniesByFuel: (fuelName) => {
+        try {
+            return axios.get(`http://192.168.1.2:8000/gas-companies/by-fuel/${fuelName}`)
+                .then((res) => {
+                    const normalizedData = res.data.map((item) => {
+                        const fuel = item.fuels.find((fuel) => fuel.fuel === fuelName);
+                        return {
+                            name: item.name,
+                            imageUrl: item.imageUrl,
+                            ...fuel
+                        }
+                    })
+                    return normalizedData;
+                })
+                .catch((err) => console.log('handle me!', err))
+        } catch (err) {
+            console.log('ERROR IN GET GAS COMPANIES BY FUEL ENDPOINT!');
+        }
     }
 };
 

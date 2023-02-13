@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, Image, ScrollView, Pressable, FlatList, Activity
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGasCompanyById, fetchGasCompanyGasStations} from '../redux/gasCompaniesSlice';
+import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
 import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
 import {MainListItem} from "../ui/MainListItem";
 
@@ -33,14 +33,15 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
                 const { _id, fuel, averagePrice, margin, imageSrc } = selectedGasCompanyFuel;
                 const isLast = index === selectedGasCompanyDetails.fuels.length - 1;
 
-                return (<MainListItem
-                    key={`gas-company-fuels-${_id}`}
-                    imageUrl={imageSrc}
-                    text={fuel}
-                    price={averagePrice}
-                    priceMargin={margin}
-                    customStyles={{marginBottom: isLast ? 100 : 0}}
-                />)}
+                return (<React.Fragment key={`gas-company-fuels-${_id}`}>
+                    <MainListItem
+                        text={fuel}
+                        imageUrl={imageSrc}
+                        price={averagePrice}
+                        priceMargin={margin}
+                        customStyles={{marginBottom: isLast ? 100 : 0}}
+                    />
+                </React.Fragment>)}
             )}
         </ScrollView>)
     };
@@ -50,11 +51,13 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
             const { _id, phoneNumber, location, name } = item;
             const isLast = index === selectedGasCompanyDetails.gasStations.length - 1;
 
-            return (<MainListItem
-                text={name}
-                icon={faLocationArrow}
-                customStyles={{marginBottom: isLast ? 100 : 0}}
-            />)
+            return (<React.Fragment key={`gas-company-gas-station-${_id}`}>
+                <MainListItem
+                    text={name}
+                    icon={faLocationArrow}
+                    customStyles={{marginBottom: isLast ? 100 : 0}}
+                />
+            </React.Fragment>)
         };
 
         return (<FlatList
@@ -78,7 +81,7 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
                     <Text style={[styles.toggleButton, selectedMenu === 1 && styles.activeToggleButton]}>Gas Stations</Text>
                 </Pressable>
             </View>
-            <Image source={{uri: imageUrl}} style={{height: 170, width: 170, marginTop: 40, borderRadius: 15}} />
+            <Image source={{uri: imageUrl}} style={{height: 170, width: 170, marginTop: 40, marginBottom: 20, borderRadius: 15}} />
             {loading ? <ActivityIndicator size="large" style={{marginTop: 20}} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} /> :
                 selectedMenu === 0 ? renderFuelsByStation() : renderGasStations()}
     </LinearGradient>)

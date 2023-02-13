@@ -30,14 +30,15 @@ export const GasStationsScreen = ({ navigation }) => {
                     const { _id, name, imageUrl  } = item;
                     const isLast = idx === allGasCompanies.length - 1;
 
-                    return (<MainListItem
-                        key={`main-fuel-item-${_id}`}
-                        text={name}
-                        imageUrl={imageUrl}
-                        onPress={() => onGasCompanyItemPress(_id, imageUrl)}
-                        infoIcon
-                        customStyles={{marginBottom: isLast ? 80 : 0, backgroundColor: `rgba(51, 51, 51, 0.85)`}}
-                    />)
+                    return (<React.Fragment key={`main-fuel-item-${_id}`}>
+                        <MainListItem
+                            text={name}
+                            imageUrl={imageUrl}
+                            onPress={() => onGasCompanyItemPress(_id, imageUrl)}
+                            infoIcon
+                            customStyles={{marginBottom: isLast ? 80 : 0, backgroundColor: `rgba(51, 51, 51, 0.85)`}}
+                        />
+                    </React.Fragment>)
                 })}
             </ScrollView>
         </ImageBackground>

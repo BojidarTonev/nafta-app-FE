@@ -20,6 +20,9 @@ export const fuelsSlice = createSlice({
                 state.loading = true;
             }
             state.loading = false;
+        },
+        setSelectedFuel: (state, {payload}) => {
+            state.selectedFuel = payload;
         }
     },
     extraReducers: (builder) => {
@@ -40,6 +43,6 @@ export const fuelsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { fuelsLoading } = fuelsSlice.actions
+export const { setSelectedFuel } = fuelsSlice.actions
 
 export default fuelsSlice.reducer

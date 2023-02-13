@@ -15,7 +15,7 @@ export const MainListItem = (props) => {
         return <FontAwesomeIcon icon={faInfoCircle} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
     }
 
-    return(<Pressable style={{...styles.itemWrapper, ...customStyles}} onPress={onPress}>
+    return(<Pressable key={key} style={{...styles.itemWrapper, ...customStyles}} onPress={onPress}>
         <View style={{flexDirection: 'row'}}>
             {renderLeadImage(imageUrl, icon)}
             <Text style={styles.itemText}>{text}</Text>

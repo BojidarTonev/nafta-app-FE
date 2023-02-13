@@ -1,25 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ImageBackground, ScrollView, StyleSheet, View} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAllFuels} from "../redux/fuelsSlice";
+import {fetchAllFuels, setSelectedFuel} from "../redux/fuelsSlice";
 import {MainListItem} from "../ui/MainListItem";
 
 export const FuelsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
-    const { allFuels, loading } = useSelector((state) => state.fuels);
+    const { allFuels } = useSelector((state) => state.fuels);
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(fetchAllFuels());
     }, []);
 
-    const onFuelItemPress = (fuelName, averagePrice) => {
+    const onFuelItemPress = (fuelName) => {
+        dispatch(setSelectedFuel(fuelName));
         navigation.navigate({
-            name: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN,
-            params: {
-                fuelName,
-                averagePrice
-            }
+            name: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN
         });
     }
 
@@ -29,16 +26,18 @@ export const FuelsScreen = ({ navigation }) => {
                 {allFuels.map((item, idx) => {
                     const {name, margin, lastMonthAveragePrice, averageMonthlyPrice, imageUrl } = item;
 
-                    return (<MainListItem
-                        key={`main-fuel-item-${idx}`}
-                        text={name}
-                        imageUrl={imageUrl}
-                        price={averageMonthlyPrice}
-                        priceMargin={margin}
-                        onPress={() => onFuelItemPress(name, averageMonthlyPrice)}
-                        infoIcon
-                        customStyles={{backgroundColor: `rgba(51, 51, 51, 0.85)`}}
-                    />)
+                    return (
+                        <React.Fragment key={`main-fuel-item-${idx}`}>
+                            <MainListItem
+                                text={name}
+                                imageUrl={imageUrl}
+                                price={averageMonthlyPrice}
+                                priceMargin={margin}
+                                onPress={() => onFuelItemPress(name)}
+                                infoIcon
+                                customStyles={{backgroundColor: `rgba(51, 51, 51, 0.85)`}}
+                            />
+                    </React.Fragment>)
                 })}
             </ScrollView>
         </ImageBackground>
