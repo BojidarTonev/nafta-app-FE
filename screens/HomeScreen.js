@@ -31,8 +31,8 @@ export const HomeScreen = ({ navigation, route }) => {
       };
       dispatch(fetchBestPriceNearestStations(fetchProps));
 
-      navigation.navigate({
-          name: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN,
+      navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.HOME_STACK, {
+          screen: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN,
           params: {
               fuelType: selectedFuelType.label,
               radius: sliderValue

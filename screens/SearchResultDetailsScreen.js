@@ -14,7 +14,6 @@ export const SearchResultDetailsScreen = ({navigation, route}) => {
             android: `${scheme}${latLng}(${label})`
         });
 
-
         Linking.openURL(url);
     }
 

@@ -48,7 +48,6 @@ export const gasCompaniesSlice = createSlice({
             state.gasCompaniesByAvailableFuel = payload;
         },
         setAverageFuelPrice: (state, {payload}) => {
-            console.log('payload => ', payload);
             state.averagePriceByFuel = payload;
         }
     },

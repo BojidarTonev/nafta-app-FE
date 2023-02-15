@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 export const TabScreenNavigator = () => (
     <Tab.Navigator
-        initialRouteName={NAFTA_APP_CONSTANTS.SCREENS.HOME_SCREEN}
+        // initialRouteName={NAFTA_APP_CONSTANTS.SCREENS.HOME_SCREEN}
         screenOptions={{
             tabBarStyle: {position: 'absolute', backgroundColor: '#000000', height: 60},
             tabBarActiveTintColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,

@@ -22,7 +22,7 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
     }
 
     React.useEffect(() => {
-        getData()
+        getData();
     }, []);
 
     const getMonthlyAverageNumbersColor = React.useCallback(() => {

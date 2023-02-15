@@ -9,8 +9,8 @@ export const SearchResultScreen = ({navigation, route}) => {
     const { gasStations } = useSelector((state) => state.home);
 
     const onResultItemPress = (companyName, fuelPrice, gasStationLocation, radius, lat, lon) => {
-        navigation.navigate({
-            name: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_DETAILS_SCREEN,
+        navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.HOME_STACK, {
+            screen: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_DETAILS_SCREEN,
             params: {
                 companyName,
                 fuelPrice,

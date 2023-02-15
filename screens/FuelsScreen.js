@@ -15,8 +15,9 @@ export const FuelsScreen = ({ navigation }) => {
 
     const onFuelItemPress = (fuelName) => {
         dispatch(setSelectedFuel(fuelName));
-        navigation.navigate({
-            name: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN
+        navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.FUELS_STACK, {
+            screen: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN,
+            fuelName
         });
     }
 

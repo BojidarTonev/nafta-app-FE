@@ -25,6 +25,5 @@ export const FuelStackScreen = () => (
                 ...sharedFuelStackNavigatorProps
             }}
         />
-        {/*<FuelStack.Screen name={NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN} component={SettingsScreen} options={{...sharedFuelStackNavigatorProps}} />*/}
     </FuelStack.Navigator>
 );

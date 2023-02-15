@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAllGasCompanies} from "../redux/gasCompaniesSlice";
 import {MainListItem} from "../ui/MainListItem";
 
-export const GasStationsScreen = ({ navigation }) => {
+export const GasCompaniesScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const { allGasCompanies } = useSelector((state) => state.gasCompanies);
 
@@ -13,14 +13,14 @@ export const GasStationsScreen = ({ navigation }) => {
         dispatch(fetchAllGasCompanies());
     }, []);
 
-    const onGasCompanyItemPress = (id, imageUrl) => {
-        navigation.navigate({
-            name: NAFTA_APP_CONSTANTS.SCREENS.GAS_STATIONS_DETAILS_SCREEN,
-            params: {
-                id,
-                imageUrl
-            }
-        });
+    const onGasCompanyItemPress = (id, imageUrl, gasCompanyName) => {
+        navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK, {
+                    screen: NAFTA_APP_CONSTANTS.SCREENS.GAS_COMPANIES_DETAILS_SCREEN,
+                    gasCompanyName,
+                    params: {
+                        id, imageUrl
+                    },
+                });
     };
 
     return(<View style={styles.container}>
@@ -34,7 +34,7 @@ export const GasStationsScreen = ({ navigation }) => {
                         <MainListItem
                             text={name}
                             imageUrl={imageUrl}
-                            onPress={() => onGasCompanyItemPress(_id, imageUrl)}
+                            onPress={() => onGasCompanyItemPress(_id, imageUrl, name)}
                             infoIcon
                             customStyles={{marginBottom: isLast ? 80 : 0, backgroundColor: `rgba(51, 51, 51, 0.85)`}}
                         />

@@ -7,7 +7,7 @@ import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
 import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
 import {MainListItem} from "../ui/MainListItem";
 
-export const GasStationDetailsScreen = ({navigation, route}) => {
+export const GasCompaniesDetailsScreen = ({navigation, route}) => {
     const { id, imageUrl } = route.params;
 
     const dispatch = useDispatch();
@@ -20,9 +20,6 @@ export const GasStationDetailsScreen = ({navigation, route}) => {
 
     const onSelectedMenuItemPress = () => {
         selectedMenu !== 0 ? setSelectedMenu(0) : setSelectedMenu(1);
-        if (selectedMenu === 1) {
-            // dispatch(fetchGasCompanyGasStations({id}))
-        }
     };
 
     const renderFuelsByStation = () => {
