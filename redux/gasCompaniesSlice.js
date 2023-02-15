@@ -62,7 +62,6 @@ export const gasCompaniesSlice = createSlice({
         });
         builder.addCase(fetchAllGasCompanies.rejected, (state) => {
             state.loading = false;
-            state.selectedGasCompanyDetails = null;
         });
 
         // FETCH BY ID ==========================================================

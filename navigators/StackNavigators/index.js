@@ -1,5 +1,5 @@
 import { FuelStackScreen } from './FuelStackNavigator';
-import { GasStationsStackScreen } from './GasCompaniesStack';
+import { GasCompaniesStackScreen } from './GasCompaniesStack';
 import { HomeStackScreen } from './HomeStackNavigator';
 
-export { FuelStackScreen, GasStationsStackScreen, HomeStackScreen }
+export { FuelStackScreen, GasCompaniesStackScreen, HomeStackScreen }

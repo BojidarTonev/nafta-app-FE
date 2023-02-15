@@ -15,12 +15,12 @@ export const GasCompaniesScreen = ({ navigation }) => {
 
     const onGasCompanyItemPress = (id, imageUrl, gasCompanyName) => {
         navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK, {
-                    screen: NAFTA_APP_CONSTANTS.SCREENS.GAS_COMPANIES_DETAILS_SCREEN,
-                    gasCompanyName,
-                    params: {
-                        id, imageUrl
-                    },
-                });
+            screen: NAFTA_APP_CONSTANTS.SCREENS.GAS_COMPANIES_DETAILS_SCREEN,
+            gasCompanyName,
+                params: {
+                    id, imageUrl
+                },
+            });
     };
 
     return(<View style={styles.container}>

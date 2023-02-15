@@ -35,9 +35,11 @@ const gasCompaniesApi = {
                     const normalizedData = res.data.map((item) => {
                         const fuel = item.fuels.find((fuel) => fuel.fuel === fuelName);
                         return {
+                            ...fuel,
+                            _id: item._id,
                             name: item.name,
                             imageUrl: item.imageUrl,
-                            ...fuel
+                            fuelId: fuel._id,
                         }
                     })
                     return normalizedData;

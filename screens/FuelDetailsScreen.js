@@ -11,7 +11,7 @@ import {
 import {SortButtons} from "../ui/SortButtons";
 import {getPositiveNegativeNumberColor} from "../utils";
 
-export const FuelDetailsScreen = ({ navigate, route }) => {
+export const FuelDetailsScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
 
     const {gasCompaniesByAvailableFuel, averagePriceByFuel} = useSelector((state) => state.gasCompanies);
@@ -31,8 +31,18 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
 
     const renderFuelCompanyItem = ({ item, index }) => {
         const { _id, name, imageUrl, averagePrice, margin } = item;
-
         const isLast = index === gasCompaniesByAvailableFuel.length - 1;
+
+        const onFuelCompanyPress = () => {
+            navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK, {
+                screen: NAFTA_APP_CONSTANTS.SCREENS.GAS_COMPANIES_DETAILS_SCREEN,
+                gasCompanyName: name,
+                params: {
+                    id: _id,
+                    imageUrl
+                }
+            })
+        }
 
         return(<React.Fragment key={`fuel-company-item-${_id}`}>
             <MainListItem
@@ -41,6 +51,7 @@ export const FuelDetailsScreen = ({ navigate, route }) => {
                 price={averagePrice}
                 priceMargin={margin}
                 customStyles={{marginBottom: isLast ? 80 : 8, marginTop: 15}}
+                onPress={onFuelCompanyPress}
             />
         </React.Fragment>)
     };

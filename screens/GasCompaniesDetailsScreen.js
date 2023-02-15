@@ -30,6 +30,13 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
                 const { _id, fuel, averagePrice, margin, imageSrc } = selectedGasCompanyFuel;
                 const isLast = index === selectedGasCompanyDetails.fuels.length - 1;
 
+                const onFuelPress = () => {
+                    navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.FUELS_STACK, {
+                        screen: NAFTA_APP_CONSTANTS.SCREENS.FUELS_DETAILS_SCREEN,
+                        fuelName: fuel
+                    })
+                }
+
                 return (<React.Fragment key={`gas-company-fuels-${_id}`}>
                     <MainListItem
                         text={fuel}
@@ -37,6 +44,7 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
                         price={averagePrice}
                         priceMargin={margin}
                         customStyles={{marginBottom: isLast ? 100 : 0}}
+                        onPress={onFuelPress}
                     />
                 </React.Fragment>)}
             )}
@@ -48,11 +56,19 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
             const { _id, phoneNumber, location, name } = item;
             const isLast = index === selectedGasCompanyDetails.gasStations.length - 1;
 
+            const onGasStationPress = () => {
+                navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK, {
+                    screen: NAFTA_APP_CONSTANTS.SCREENS.GAS_STATION_DETAILS_SCREEN,
+                    gasStationName: name
+                })
+            };
+
             return (<React.Fragment key={`gas-company-gas-station-${_id}`}>
                 <MainListItem
                     text={name}
                     icon={faLocationArrow}
                     customStyles={{marginBottom: isLast ? 100 : 0}}
+                    onPress={onGasStationPress}
                 />
             </React.Fragment>)
         };

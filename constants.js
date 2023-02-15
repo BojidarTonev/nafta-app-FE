@@ -11,9 +11,10 @@ export const NAFTA_APP_CONSTANTS = {
         FUELS_DETAILS_SCREEN: "FuelsDetails",
         GAS_COMPANIES_SCREEN: "GasCompanies",
         GAS_COMPANIES_DETAILS_SCREEN: "GasCompaniesDetails",
+        GAS_STATION_DETAILS_SCREEN: "GasStationDetails",
         SETTINGS_SCREEN: "Settings",
-        SEARCH_RESULT_SCREEN: "SearchResultScreen",
-        SEARCH_RESULT_DETAILS_SCREEN: "SearchResultDetailsScreen"
+        SEARCH_RESULT_SCREEN: "SearchResult",
+        SEARCH_RESULT_DETAILS_SCREEN: "SearchResultDetails"
     },
     COLORS: {
         ACTIVE_COLOR: "#fda614",
