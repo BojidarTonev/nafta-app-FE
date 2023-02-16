@@ -15,11 +15,12 @@ export const transformMarketNumber = (number) => {
 
 export const getHeaderTitle = (route) => {
     let routeName = getFocusedRouteNameFromRoute(route);
+
     if(!routeName) {
         if(route.name === NAFTA_APP_CONSTANTS.STACKS.HOME_STACK) routeName = NAFTA_APP_CONSTANTS.SCREENS.HOME_SCREEN;
         else if (route.name === NAFTA_APP_CONSTANTS.STACKS.FUELS_STACK) routeName = NAFTA_APP_CONSTANTS.SCREENS.FUELS_SCREEN;
         else if (route.name === NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK) routeName = NAFTA_APP_CONSTANTS.SCREENS.GAS_COMPANIES_SCREEN;
-        else if (route.name === NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN) routeName = NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN;
+        else if (route.name === NAFTA_APP_CONSTANTS.STACKS.SETTINGS_STACK) routeName = NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN;
     }
 
     switch(routeName) {
@@ -41,6 +42,18 @@ export const getHeaderTitle = (route) => {
             return route.params?.gasCompanyName || 'Gas Company Details';
         case NAFTA_APP_CONSTANTS.SCREENS.GAS_STATION_DETAILS_SCREEN:
             return route.params?.gasStationName || 'Gas Station Details';
+        case NAFTA_APP_CONSTANTS.SCREENS.ACCOUNT_SETTINGS_SCREEN:
+            return 'Account Settings';
+        case NAFTA_APP_CONSTANTS.SCREENS.REPORT_A_PROBLEM_SCREEN:
+            return 'Report Problem';
+        case NAFTA_APP_CONSTANTS.SCREENS.ABOUT_SETTINGS_SCREEN:
+            return 'About us';
+        case NAFTA_APP_CONSTANTS.SCREENS.NOTIFICATIONS_SETTINGS_SCREEN:
+            return 'Manage Notifications';
+        case NAFTA_APP_CONSTANTS.SCREENS.WIN_AWARDS_SETTINGS_SCREEN:
+            return 'Win Awards';
+        case NAFTA_APP_CONSTANTS.SCREENS.MANAGE_ADDS_SETTINGS_SCREEN:
+            return 'Manage Ads';
         default:
             return 'Ebasi';
     }

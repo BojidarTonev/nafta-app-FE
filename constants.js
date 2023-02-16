@@ -8,13 +8,19 @@ export const NAFTA_APP_CONSTANTS = {
     SCREENS: {
         HOME_SCREEN: "Home",
         FUELS_SCREEN: "Fuels",
+        SETTINGS_SCREEN: "Settings",
         FUELS_DETAILS_SCREEN: "FuelsDetails",
         GAS_COMPANIES_SCREEN: "GasCompanies",
         GAS_COMPANIES_DETAILS_SCREEN: "GasCompaniesDetails",
         GAS_STATION_DETAILS_SCREEN: "GasStationDetails",
-        SETTINGS_SCREEN: "Settings",
         SEARCH_RESULT_SCREEN: "SearchResult",
-        SEARCH_RESULT_DETAILS_SCREEN: "SearchResultDetails"
+        SEARCH_RESULT_DETAILS_SCREEN: "SearchResultDetails",
+        ACCOUNT_SETTINGS_SCREEN: "AccountSettings",
+        REPORT_A_PROBLEM_SCREEN: "ReportAProblem",
+        ABOUT_SETTINGS_SCREEN: "AboutScreen",
+        NOTIFICATIONS_SETTINGS_SCREEN: "NotificationsScreen",
+        WIN_AWARDS_SETTINGS_SCREEN: "WinAwardsScreen",
+        MANAGE_ADDS_SETTINGS_SCREEN: "ManageAddsSettingsScreen"
     },
     COLORS: {
         ACTIVE_COLOR: "#fda614",

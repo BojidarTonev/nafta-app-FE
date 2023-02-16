@@ -1,10 +1,9 @@
 import {NAFTA_APP_CONSTANTS} from "../constants";
-import {FuelStackScreen, GasCompaniesStackScreen, HomeStackScreen} from "./StackNavigators";
+import {FuelStackScreen, GasCompaniesStackScreen, HomeStackScreen, SettingsStackScreen} from "./StackNavigators";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faDollarSign, faFire, faGasPump, faBroom} from "@fortawesome/fontawesome-free-solid";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {getHeaderTitle} from "../utils";
-import {SettingsScreen} from "../screens/SettingsScreen";
 
 const navigationTabSharedProps = {
     headerTitleAlign: 'center',
@@ -56,8 +55,8 @@ export const TabScreenNavigator = () => (
                 })}
             />
             <Tab.Screen
-                name={NAFTA_APP_CONSTANTS.SCREENS.SETTINGS_SCREEN}
-                component={SettingsScreen}
+                name={NAFTA_APP_CONSTANTS.STACKS.SETTINGS_STACK}
+                component={SettingsStackScreen}
                 options={({route}) => ({
                     headerTitle: getHeaderTitle(route),
                     tabBarIcon: ({color, size}) => (
