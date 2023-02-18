@@ -1,9 +1,8 @@
 import {Text, StyleSheet, View, ScrollView, Pressable} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faAngleRight, faUser, faHelicopter, faInfo, faNewspaper, faGift} from "@fortawesome/fontawesome-free-solid";
 import React from "react";
+import {FontAwesome} from "@expo/vector-icons";
 
 const settingsItems = [{
     text: 'Account',
@@ -12,7 +11,7 @@ const settingsItems = [{
             screen: NAFTA_APP_CONSTANTS.SCREENS.ACCOUNT_SETTINGS_SCREEN
         })
     },
-    iconName: faUser,
+    iconName: "user",
 }, {
     text: 'Report A Problem',
     onItemPress: (navigation) => {
@@ -20,7 +19,7 @@ const settingsItems = [{
             screen: NAFTA_APP_CONSTANTS.SCREENS.REPORT_A_PROBLEM_SCREEN
         })
     },
-    iconName: faHelicopter,
+    iconName: "bug",
 },{
         text: 'About',
         onItemPress: (navigation) => {
@@ -28,7 +27,7 @@ const settingsItems = [{
                 screen: NAFTA_APP_CONSTANTS.SCREENS.ABOUT_SETTINGS_SCREEN
             })
         },
-        iconName: faInfo,
+        iconName: "info-circle",
 }, {
     text: 'Notifications',
     onItemPress: (navigation) => {
@@ -36,7 +35,7 @@ const settingsItems = [{
             screen: NAFTA_APP_CONSTANTS.SCREENS.NOTIFICATIONS_SETTINGS_SCREEN
         })
     },
-    iconName: faNewspaper
+    iconName: "info-circle"
 }, {
     text: 'Manage Ads',
     onItemPress: (navigation) => {
@@ -44,7 +43,7 @@ const settingsItems = [{
             screen: NAFTA_APP_CONSTANTS.SCREENS.MANAGE_ADDS_SETTINGS_SCREEN
         })
     },
-    iconName: faGift,
+    iconName: "thumbs-up",
     isOffer: true
 }, {
     text: 'Win Awards',
@@ -53,7 +52,7 @@ const settingsItems = [{
             screen: NAFTA_APP_CONSTANTS.SCREENS.WIN_AWARDS_SETTINGS_SCREEN
         })
     },
-    iconName: faGift,
+    iconName: "gift",
     isOffer: true
 }];
 
@@ -72,10 +71,10 @@ export const SettingsScreen = ({navigation}) => {
                         return (<React.Fragment key={`settings-item-${idx}`}>
                                 <Pressable style={[styles.settingsItem, isOffer && styles.test]} onPress={() => onItemPress(navigation)}>
                                     <View style={{flexDirection: 'row'}}>
-                                        <FontAwesomeIcon icon={iconName} size={25} style={{color: itemColor, marginRight: 20}} />
+                                        <FontAwesome name={iconName} size={25} style={{color: itemColor, marginRight: 20}} />
                                         <Text style={{color: 'white', fontSize: 18}}>{text}</Text>
                                     </View>
-                                    <FontAwesomeIcon icon={faAngleRight} size={25} style={{color: 'white'}} />
+                                    <FontAwesome name="angle-right" size={25} style={{color: 'white'}} />
                                 </Pressable>
                                 {idx === 0 && <View
                                     style={{

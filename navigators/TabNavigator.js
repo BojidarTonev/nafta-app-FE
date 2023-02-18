@@ -1,9 +1,8 @@
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {FuelStackScreen, GasCompaniesStackScreen, HomeStackScreen, SettingsStackScreen} from "./StackNavigators";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faDollarSign, faFire, faGasPump, faBroom} from "@fortawesome/fontawesome-free-solid";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {getHeaderTitle} from "../utils";
+import {FontAwesome, Ionicons, MaterialIcons} from "@expo/vector-icons";
 
 const navigationTabSharedProps = {
     headerTitleAlign: 'center',
@@ -26,8 +25,8 @@ export const TabScreenNavigator = () => (
                 component={HomeStackScreen}
                 options={({route}) => ({
                     headerTitle: getHeaderTitle(route),
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faDollarSign} color={color} size={size}/>
+                    tabBarIcon: ({color}) => (
+                        <FontAwesome name="usd" size={30} color={color} />
                     ),
                     ...navigationTabSharedProps
                 })}
@@ -37,8 +36,8 @@ export const TabScreenNavigator = () => (
                 component={FuelStackScreen}
                 options={({route}) => ({
                     headerTitle: getHeaderTitle(route),
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faFire} color={color} size={size}/>
+                    tabBarIcon: ({color}) => (
+                        <Ionicons name="flame" size={30} color={color} />
                     ),
                     ...navigationTabSharedProps
                 })}
@@ -48,8 +47,8 @@ export const TabScreenNavigator = () => (
                 component={GasCompaniesStackScreen}
                 options={({route}) => ({
                     headerTitle: getHeaderTitle(route),
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faGasPump} color={color} size={size}/>
+                    tabBarIcon: ({color}) => (
+                        <MaterialIcons name="local-gas-station" size={30} color={color} />
                     ),
                     ...navigationTabSharedProps
                 })}
@@ -59,8 +58,8 @@ export const TabScreenNavigator = () => (
                 component={SettingsStackScreen}
                 options={({route}) => ({
                     headerTitle: getHeaderTitle(route),
-                    tabBarIcon: ({color, size}) => (
-                        <FontAwesomeIcon icon={faBroom} color={color} size={size}/>
+                    tabBarIcon: ({color}) => (
+                        <Ionicons name="settings-sharp" size={30} color={color} />
                     ),
                     ...navigationTabSharedProps
                 })}

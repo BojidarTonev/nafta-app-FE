@@ -4,7 +4,6 @@ import {NAFTA_APP_CONSTANTS} from "../constants";
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
-import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
 import {MainListItem} from "../ui/MainListItem";
 import {NaftaText} from "../ui/NaftaText";
 
@@ -67,7 +66,7 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
             return (<React.Fragment key={`gas-company-gas-station-${_id}`}>
                 <MainListItem
                     text={name}
-                    icon={faLocationArrow}
+                    icon="location-arrow"
                     customStyles={{marginBottom: isLast ? 100 : 0}}
                     onPress={onGasStationPress}
                 />

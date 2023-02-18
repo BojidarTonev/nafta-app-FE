@@ -35,7 +35,6 @@ export const FuelsScreen = ({ navigation }) => {
                                 price={averageMonthlyPrice}
                                 priceMargin={margin}
                                 onPress={() => onFuelItemPress(name)}
-                                infoIcon
                                 customStyles={{backgroundColor: `rgba(51, 51, 51, 0.85)`}}
                             />
                     </React.Fragment>)

@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Pressable, StyleSheet, View} from "react-native";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faAngleDown, faAngleUp} from "@fortawesome/fontawesome-free-solid";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {NaftaText} from "./NaftaText";
+import {FontAwesome} from "@expo/vector-icons";
 
 export const SortButtons = (props) => {
     const { buttonOptions, data, updateReducer } = props;
@@ -26,9 +25,9 @@ export const SortButtons = (props) => {
     }
 
     const renderActiveButtonFilterIcon = React.useCallback(() => {
-        const icon = sortDirection ? faAngleUp : faAngleDown;
+        const icon = sortDirection ? "angle-up" : "angle-down";
 
-        return(<FontAwesomeIcon icon={icon} size={25} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginRight: 10}}/>);
+        return(<FontAwesome name={icon} size={25} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginRight: 10}}/>);
     }, [sortDirection]);
 
     return(<View style={styles.filterButtonsWrapper}>

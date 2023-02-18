@@ -1,19 +1,18 @@
 import PropTypes from 'prop-types';
 import {Pressable, StyleSheet, View, Image} from "react-native";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faInfoCircle} from '@fortawesome/fontawesome-free-solid';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
 import {NaftaText} from "./NaftaText";
+import {FontAwesome} from "@expo/vector-icons";
 
 export const MainListItem = (props) => {
     const { key, imageUrl, icon, infoIcon, text, price, priceMargin, onPress, customStyles } = props;
 
     const renderLeadImage = (imageUrl, icon) => {
         if(imageUrl) return <Image source={{uri: imageUrl}} style={{height: 30, width: 30}}/>
-        else if (icon) return <FontAwesomeIcon icon={icon} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
+        else if (icon) return <FontAwesome name={icon} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
 
-        return <FontAwesomeIcon icon={faInfoCircle} size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
+        return <FontAwesome name="info-circle" size={30} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
     }
 
     return(<Pressable key={key} style={{...styles.itemWrapper, ...customStyles}} onPress={onPress}>
@@ -28,7 +27,7 @@ export const MainListItem = (props) => {
                     <NaftaText text={transformMarketNumber(priceMargin)} color={getPositiveNegativeNumberColor(priceMargin)} customStyles={{paddingLeft: 5, fontSize: 15}} />
                     : null}
             </View>)}
-            {infoIcon && <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}}/>}
+            {infoIcon && <FontAwesome name="info-circle" size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}}/>}
         </View>
     </Pressable>);
 };
@@ -46,7 +45,7 @@ MainListItem.propTypes = {
 
 const styles = StyleSheet.create({
     itemWrapper: {
-        backgroundColor: 'rgba(100,79,60,0.3)',
+        backgroundColor: 'rgba(100,79,60, 0.3)',
         marginHorizontal: 40,
         flexDirection: 'row',
         alignItems: 'center',
@@ -54,12 +53,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
         padding: 15,
         borderRadius: 10,
-
         // shadowColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-        elevation: 20
+        elevation: 25,
     },
     innerWrapper: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 });
