@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleSheet, View} from "react-native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faAngleDown, faAngleUp} from "@fortawesome/fontawesome-free-solid";
 import {NAFTA_APP_CONSTANTS} from "../constants";
+import {NaftaText} from "./NaftaText";
 
 export const SortButtons = (props) => {
     const { buttonOptions, data, updateReducer } = props;
@@ -34,7 +35,7 @@ export const SortButtons = (props) => {
         {buttonOptions?.map((btnOpt, idx) => (
             <Pressable key={`sort-button-${idx}`} style={[styles.filterButton, activeFilter === idx && styles.activeFilterButton]} onPress={() => onButtonPress(btnOpt.propName, idx)}>
                 {activeFilter === idx && renderActiveButtonFilterIcon()}
-                <Text style={[styles.filterText, activeFilter === idx && styles.activeFilterText]}>{btnOpt.buttonText}</Text>
+                <NaftaText text={btnOpt.buttonText} color={activeFilter === idx ? NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR : 'white'}/>
             </Pressable>
         ))}
     </View>);
@@ -65,13 +66,5 @@ const styles = StyleSheet.create({
     },
     activeFilterButton: {
         backgroundColor: 'rgba(43,90,152,0.6)'
-    },
-    filterText: {
-        color: 'white',
-        fontSize: 15
-    },
-    activeFilterText: {
-        color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-        fontSize: 20
     }
 });

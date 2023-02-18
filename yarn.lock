@@ -1069,6 +1069,16 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/hind-madurai@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/hind-madurai/-/hind-madurai-0.2.2.tgz#dc31caeda928c95b74fbc28588ff00db5ff35cc6"
+  integrity sha512-rPtfZkeIXPW9NBBEjhTAuctvAmY+R+IL4aSqEX650IkcN11Oe7aL7UiJRlkrr1c8sxuCju6J5FLkYWrlsYWcCw==
+
+"@expo-google-fonts/roboto-condensed@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/roboto-condensed/-/roboto-condensed-0.2.2.tgz#b7d775e71c8982bb86042093dc71bd791d944755"
+  integrity sha512-Bi+XYoNzueuhJdwXicmibiIfZRkf8nF8Pe2eYnrp84Mttodbf9Bpc0nIONXUSTmBitbuK2f/0cPk/8dy6z+xIQ==
+
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@expo/bunyan/-/bunyan-4.0.0.tgz#be0c1de943c7987a9fbd309ea0b1acd605890c7b"

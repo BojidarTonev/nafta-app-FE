@@ -1,6 +1,7 @@
-import {Text, View, StyleSheet, Image, Pressable, Linking, Platform} from "react-native";
+import {View, StyleSheet, Image, Pressable, Linking, Platform} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
+import {NaftaText} from "../ui/NaftaText";
 
 export const SearchResultDetailsScreen = ({navigation, route}) => {
     const {fuelType, fuelPrice, gasStationLocation, radius, companyName, lat, lon} = route.params;
@@ -25,20 +26,20 @@ export const SearchResultDetailsScreen = ({navigation, route}) => {
             <Image source={{uri: `http://origin.stg.cld.vcdn.data.here.com/p/d/autox_stg/dt/icons/2015-05-06/${companyName.toLowerCase()}.png`}} style={{width: 200, height: 190, alignSelf: 'center', marginTop: 100}} />
             <View style={styles.informationContainer}>
                 <View style={styles.containerRow}>
-                    <Text style={styles.containerRowKeyText}>{fuelType} Price:</Text>
-                    <Text style={styles.containerRowKeyValue}>{fuelPrice}</Text>
+                    <NaftaText text={`${fuelType} Price:`} bold customStyles={{marginRight: 15}} />
+                    <NaftaText text={fuelPrice} bold customStyles={{marginRight: 15}} />
                 </View>
                 <View style={styles.containerRow}>
-                    <Text style={styles.containerRowKeyText}>Location:</Text>
-                    <Text style={{flex: 1, textAlign: 'right', ...styles.containerRowKeyValue}} numberOfLines={2} ellipsizeMode="tail">{gasStationLocation}</Text>
+                    <NaftaText text={"Location:"} bold customStyles={{marginRight: 15}}/>
+                    <NaftaText text={gasStationLocation} numberOfLines={2} ellipsizeMode="tail" color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} customStyles={{flex: 1, textAlign: 'right'}} />
                 </View>
                 <View style={styles.containerRow}>
-                    <Text style={styles.containerRowKeyText}>Distance:</Text>
-                    <Text style={styles.containerRowKeyValue}>{radius.toFixed(2)}km</Text>
+                    <NaftaText text={"Distance:"} bold customStyles={{marginRight: 15}} />
+                    <NaftaText text={`${radius.toFixed(2)}km`} bold color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} />
                 </View>
             </View>
             <Pressable title="Open in Maps" style={styles.actionButtonWrapper} onPress={onOpenInMapsButtonPress}>
-                <Text style={styles.actionButtonText}>Open in Maps</Text>
+                <NaftaText text={"Open in Maps"} color="black" customStyles={{alignSelf: 'center'}} bold />
             </Pressable>
     </LinearGradient>)
 }
@@ -61,16 +62,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginVertical: 12
     },
-    containerRowKeyText: {
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold',
-        marginRight: 15
-    },
-    containerRowKeyValue: {
-        fontSize: 20,
-        color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR
-    },
     actionButtonWrapper: {
         backgroundColor: 'rgba(253, 166, 20, 0.8)',
         width: 200,
@@ -78,11 +69,5 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: 30,
         borderRadius: 40
-    },
-    actionButtonText: {
-        color: 'black',
-        alignSelf: 'center',
-        fontSize: 20,
-        fontWeight: 'bold'
     }
 })

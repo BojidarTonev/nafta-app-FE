@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import {Pressable, StyleSheet, Text, View, Image} from "react-native";
+import {Pressable, StyleSheet, View, Image} from "react-native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faInfoCircle} from '@fortawesome/fontawesome-free-solid';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {getPositiveNegativeNumberColor, transformMarketNumber} from "../utils";
+import {NaftaText} from "./NaftaText";
 
 export const MainListItem = (props) => {
     const { key, imageUrl, icon, infoIcon, text, price, priceMargin, onPress, customStyles } = props;
@@ -16,18 +17,16 @@ export const MainListItem = (props) => {
     }
 
     return(<Pressable key={key} style={{...styles.itemWrapper, ...customStyles}} onPress={onPress}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
             {renderLeadImage(imageUrl, icon)}
-            <Text style={styles.itemText}>{text}</Text>
+            <NaftaText text={text} customStyles={{marginLeft: 20}} />
         </View>
         <View style={styles.innerWrapper}>
             {price && (<View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 20, color: getPositiveNegativeNumberColor(priceMargin), fontWeight: 'bold'}}>
-                    {price}
-                </Text>
-                {priceMargin ? (<Text style={{fontSize: 15, paddingLeft: 5, color: getPositiveNegativeNumberColor(priceMargin)}}>
-                    {transformMarketNumber(priceMargin)}
-                </Text>) : null}
+                <NaftaText text={price} bold color={getPositiveNegativeNumberColor(priceMargin)} />
+                {priceMargin ?
+                    <NaftaText text={transformMarketNumber(priceMargin)} color={getPositiveNegativeNumberColor(priceMargin)} customStyles={{paddingLeft: 5, fontSize: 15}} />
+                    : null}
             </View>)}
             {infoIcon && <FontAwesomeIcon icon={faInfoCircle} size={20} color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} style={{marginLeft: 10}}/>}
         </View>
@@ -59,16 +58,8 @@ const styles = StyleSheet.create({
         // shadowColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
         elevation: 20
     },
-    itemText: {
-        fontSize: 20,
-        color: 'white',
-        marginLeft: 20
-    },
     innerWrapper: {
         flexDirection: 'row',
         alignItems: 'center'
     },
-    priceMovementText: {
-        fontSize: 20,
-    }
 });

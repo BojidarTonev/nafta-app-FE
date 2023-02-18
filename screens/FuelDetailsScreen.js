@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet, FlatList} from "react-native";
+import {View, StyleSheet, FlatList} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {LinearGradient} from 'expo-linear-gradient';
 import {MainListItem} from "../ui/MainListItem";
@@ -10,6 +10,7 @@ import {
 } from "../redux/gasCompaniesSlice";
 import {SortButtons} from "../ui/SortButtons";
 import {getPositiveNegativeNumberColor} from "../utils";
+import {NaftaText} from "../ui/NaftaText";
 
 export const FuelDetailsScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
@@ -71,8 +72,8 @@ export const FuelDetailsScreen = ({ navigation, route }) => {
         colors={[NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_DARK, NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_ORANGE]}
         style={styles.container}>
             <View style={styles.monthlyAverageWrapper}>
-                <Text style={styles.monthlyAverageText}>Monthly average: </Text>
-                <Text style={{color: getMonthlyAverageNumbersColor(), fontSize: 25}}>{averagePriceByFuel}</Text>
+                <NaftaText text={"Monthly average:"} isHeadingText color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR}/>
+                <NaftaText text={averagePriceByFuel} isHeadingText color={getMonthlyAverageNumbersColor()}/>
             </View>
             <SortButtons
                 buttonOptions={buttonOptions}
@@ -96,17 +97,11 @@ const styles = StyleSheet.create({
       marginHorizontal: 30,
       marginBottom: 40,
       flexDirection: 'row',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       alignItems: 'center',
       borderRadius: 10,
       backgroundColor: 'rgba(100,79,60,0.2)',
       paddingVertical: 15,
       elevation: 10
-    },
-    monthlyAverageText: {
-      color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-      fontSize: 25,
-      marginRight: 20,
-      fontWeight: 'bold'
     }
 });

@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View, ImageBackground, StyleSheet, TouchableOpacity} from "react-native";
+import {View, ImageBackground, StyleSheet, TouchableOpacity} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {Slider} from "@miblanchard/react-native-slider";
 import {Picker} from "@react-native-picker/picker";
 import {useDispatch} from "react-redux";
 import {fetchBestPriceNearestStations} from "../redux/homeSlice";
+import {NaftaText} from "../ui/NaftaText";
 
 const pickerFuelTypesValues = [
     { label: 'Gasoline', value: 'gasoline' },
@@ -54,12 +55,12 @@ export const HomeScreen = ({ navigation, route }) => {
 
   return(<View style={{flex: 1}}>
       <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
-          <Text style={styles.subHeaderText}>{subTitle}</Text>
+          <NaftaText text={subTitle} customStyles={{position: 'absolute', top: 90}}/>
           <TouchableOpacity
               activeOpacity={0.6}
               onPress={onFindPress}
               style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>FIND</Text>
+              <NaftaText text={"FIND"} bold color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} customStyles={{fontSize: 35}} />
           </TouchableOpacity>
 
           <View style={styles.filtersContainer}>
@@ -74,7 +75,7 @@ export const HomeScreen = ({ navigation, route }) => {
                       return(<Picker.Item key={`gasoline-item-${idx}`} label={label} value={value} />)
                   })}
               </Picker>
-              <Text style={styles.radiusText}>Radius: {sliderValue}km</Text>
+              <NaftaText text={`Radius: ${sliderValue}km`} />
               <Slider
                   step={1}
                   minimumValue={0}
@@ -93,12 +94,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    subHeaderText: {
-        color: 'white',
-        fontSize: 20,
-        position: 'absolute',
-        top: 90,
-    },
     backgroundImage: {
         flex: 1,
         justifyContent: 'center',
@@ -116,18 +111,9 @@ const styles = StyleSheet.create({
         borderColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR_2,
         borderWidth: 5
     },
-    actionButtonText: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR
-    },
     filtersContainer: {
         width: '80%',
         marginTop: 40
-    },
-    radiusText: {
-        fontSize: 20,
-        color: 'white'
     },
     pickerStyle: {
         backgroundColor: 'rgba(51, 51, 51, 0.8)',

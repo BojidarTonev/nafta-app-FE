@@ -1,11 +1,12 @@
 import React from "react";
-import {Text, View, StyleSheet, Image, ScrollView, Pressable, FlatList, ActivityIndicator} from "react-native";
+import {View, StyleSheet, Image, ScrollView, Pressable, FlatList, ActivityIndicator} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchGasCompanyById} from '../redux/gasCompaniesSlice';
 import {faLocationArrow} from "@fortawesome/fontawesome-free-solid";
 import {MainListItem} from "../ui/MainListItem";
+import {NaftaText} from "../ui/NaftaText";
 
 export const GasCompaniesDetailsScreen = ({navigation, route}) => {
     const { id, imageUrl } = route.params;
@@ -54,7 +55,7 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
     const renderGasStations = () => {
         const renderGasCompanyDetail = ({item, index }) => {
             const { _id, phoneNumber, location, name } = item;
-            const isLast = index === selectedGasCompanyDetails.gasStations.length - 1;
+            const isLast = index === selectedGasCompanyDetails?.gasStations.length - 1;
 
             const onGasStationPress = () => {
                 navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.GAS_COMPANIES_STACK, {
@@ -74,7 +75,7 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
         };
 
         return (<FlatList
-            data={selectedGasCompanyDetails.gasStations || []}
+            data={selectedGasCompanyDetails?.gasStations || []}
             renderItem={renderGasCompanyDetail}
             keyExtractor={(item) => `gas-company-gas-stations-${item._id}`}
             style={{width: '100%'}}
@@ -88,10 +89,10 @@ export const GasCompaniesDetailsScreen = ({navigation, route}) => {
         style={styles.container}>
             <View style={styles.toggleButtonWrapper}>
                 <Pressable onPress={onSelectedMenuItemPress}>
-                    <Text style={[styles.toggleButton, selectedMenu === 0 && styles.activeToggleButton]}>Details</Text>
+                    <NaftaText text="Details" bold customStyles={{paddingHorizontal: 20, fontSize: 25, }} color={selectedMenu === 0 ? NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR : 'white'} />
                 </Pressable>
                 <Pressable onPress={onSelectedMenuItemPress}>
-                    <Text style={[styles.toggleButton, selectedMenu === 1 && styles.activeToggleButton]}>Gas Stations</Text>
+                    <NaftaText text="Gas Stations" bold customStyles={{paddingHorizontal: 20, fontSize: 25}} color={selectedMenu === 1 ? NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR : 'white'} />
                 </Pressable>
             </View>
             <Image source={{uri: imageUrl}} style={{height: 170, width: 170, marginTop: 40, marginBottom: 20, borderRadius: 15}} />
@@ -111,16 +112,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "center",
         width: '120%'
-    },
-    toggleButton: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'white',
-        paddingHorizontal: 20
-    },
-    activeToggleButton: {
-        backgroundColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR,
-        borderRadius: 20
     },
     additionalInformation: {
         marginBottom: 80,

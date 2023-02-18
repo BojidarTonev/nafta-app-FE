@@ -2,6 +2,7 @@ import {Text, View, StyleSheet, ScrollView, Image, Pressable} from "react-native
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {useSelector} from "react-redux";
+import {NaftaText} from "../ui/NaftaText";
 
 export const SearchResultScreen = ({navigation, route}) => {
     const {fuelType, radius} = route.params;
@@ -29,8 +30,8 @@ export const SearchResultScreen = ({navigation, route}) => {
         colors={[NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_DARK, NAFTA_APP_CONSTANTS.COLORS.BACKGROUND_COLOR_ORANGE]}
         style={styles.container}>
             <View style={styles.informationButtonsWrapper}>
-                <Text style={styles.informationButton}>{fuelType}</Text>
-                <Text style={styles.informationButton}>Radius: {radius}km</Text>
+                <NaftaText text={fuelType} bold customStyles={styles.informationButton}/>
+                <NaftaText text={`Radius: ${radius}km`} bold customStyles={styles.informationButton}/>
             </View>
             <ScrollView style={{marginTop: 20}}>
                 {gasStations.map((item, index) => {
@@ -66,9 +67,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
     },
     informationButton: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'white',
         backgroundColor: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR_2,
         paddingHorizontal: 20,
         paddingVertical: 7,

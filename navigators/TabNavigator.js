@@ -7,7 +7,7 @@ import {getHeaderTitle} from "../utils";
 
 const navigationTabSharedProps = {
     headerTitleAlign: 'center',
-    headerTitleStyle: { fontSize: 30, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontWeight: 'bold' },
+    headerTitleStyle: { fontSize: 35, color: NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR, fontFamily: 'HeadingBold', letterSpacing: 0.8 },
     headerTransparent: true
 };
 
