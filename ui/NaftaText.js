@@ -11,7 +11,7 @@ export const NaftaText = (props) => {
     return(<Text style={{...textStyles, ...customStyles, color: color}} {...rest}>{text}</Text>)
 }
 
-NaftaText.PropTypes = {
+NaftaText.propTypes = {
     text: PropTypes.string,
     isHeadingText: PropTypes.bool,
     bold: PropTypes.bool,

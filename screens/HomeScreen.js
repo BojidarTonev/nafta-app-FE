@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, ImageBackground, StyleSheet, TouchableOpacity} from "react-native";
+import {View, ImageBackground, StyleSheet, TouchableOpacity, ActivityIndicator} from "react-native";
+import * as Location from 'expo-location';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {Slider} from "@miblanchard/react-native-slider";
 import {Picker} from "@react-native-picker/picker";
@@ -19,11 +20,27 @@ export const HomeScreen = ({ navigation, route }) => {
 
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = React.useState(false);
   const [sliderValue, setSliderValue] = React.useState(0);
   const [selectedFuelType, setSelectedFuelType] = React.useState(pickerFuelTypesValues[0]);
 
-  const onFindPress = () => {
+  const onFindPress = async () => {
+      setLoading(true);
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if(status !== 'granted') {
+          // show warning message explaining the user that he needs to allow location in order to use this functionality
+          setLoading(false);
+          return;
+      }
+      const location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
+      const lat = location.coords.latitude;
+      const lon = location.coords.longitude;
+      console.log('lat => ', lat);
+      console.log('lon => ', lon);
+
       const fetchProps = {
+          // lat: lat,
+          // lon: lon,
           lat: 42.6628640167891,
           lon: 23.28363632506699,
           fuel: selectedFuelType.value,
@@ -31,14 +48,14 @@ export const HomeScreen = ({ navigation, route }) => {
           distance: sliderValue
       };
       dispatch(fetchBestPriceNearestStations(fetchProps));
-
       navigation.navigate(NAFTA_APP_CONSTANTS.STACKS.HOME_STACK, {
           screen: NAFTA_APP_CONSTANTS.SCREENS.SEARCH_RESULT_SCREEN,
           params: {
               fuelType: selectedFuelType.label,
               radius: sliderValue
           }
-      })
+      });
+      setLoading(false);
   };
 
   const onSliderValueChange = (e) => {
@@ -60,7 +77,7 @@ export const HomeScreen = ({ navigation, route }) => {
               activeOpacity={0.6}
               onPress={onFindPress}
               style={styles.actionButton}>
-              <NaftaText text={"FIND"} bold color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} customStyles={{fontSize: 35}} />
+                {loading ? <ActivityIndicator /> : <NaftaText text={"FIND"} bold color={NAFTA_APP_CONSTANTS.COLORS.ACTIVE_COLOR} customStyles={{fontSize: 35}} />}
           </TouchableOpacity>
 
           <View style={styles.filtersContainer}>
