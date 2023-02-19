@@ -1,8 +1,9 @@
-import {Text, StyleSheet, View, ScrollView, Pressable} from "react-native";
+import {StyleSheet, View, ScrollView, Pressable} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import React from "react";
 import {FontAwesome} from "@expo/vector-icons";
+import {NaftaText} from "../ui/NaftaText";
 
 const settingsItems = [{
     text: 'Account',
@@ -72,7 +73,7 @@ export const SettingsScreen = ({navigation}) => {
                                 <Pressable style={[styles.settingsItem, isOffer && styles.test]} onPress={() => onItemPress(navigation)}>
                                     <View style={{flexDirection: 'row'}}>
                                         <FontAwesome name={iconName} size={25} style={{color: itemColor, marginRight: 20}} />
-                                        <Text style={{color: 'white', fontSize: 18}}>{text}</Text>
+                                        <NaftaText text={text} />
                                     </View>
                                     <FontAwesome name="angle-right" size={25} style={{color: 'white'}} />
                                 </Pressable>

@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {ImageBackground, ScrollView, StyleSheet, View} from "react-native";
+import React from 'react';
+import {ImageBackground, Animated, StyleSheet, View} from "react-native";
 import {NAFTA_APP_CONSTANTS} from "../constants";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAllFuels, setSelectedFuel} from "../redux/fuelsSlice";
@@ -9,8 +9,15 @@ export const FuelsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const { allFuels } = useSelector((state) => state.fuels);
 
-    useEffect(() => {
+    const [fadeAnim] = React.useState(new Animated.Value(0));
+
+    React.useEffect(() => {
         dispatch(fetchAllFuels());
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true
+        }).start();
     }, []);
 
     const onFuelItemPress = (fuelName) => {
@@ -23,7 +30,7 @@ export const FuelsScreen = ({ navigation }) => {
 
     return(<View style={styles.container}>
         <ImageBackground source={require('../assets/map2.jpg')} blurRadius={5} resizeMode="cover" style={styles.backgroundImage}>
-            <ScrollView style={{marginTop: 100,  flex: 1}}>
+            <Animated.ScrollView style={{marginTop: 100,  flex: 1, opacity: fadeAnim}}>
                 {allFuels.map((item, idx) => {
                     const {name, margin, lastMonthAveragePrice, averageMonthlyPrice, imageUrl } = item;
 
@@ -39,7 +46,7 @@ export const FuelsScreen = ({ navigation }) => {
                             />
                     </React.Fragment>)
                 })}
-            </ScrollView>
+            </Animated.ScrollView>
         </ImageBackground>
     </View>)
 };
